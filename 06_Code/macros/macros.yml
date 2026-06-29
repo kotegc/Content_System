@@ -1,0 +1,43 @@
+# Content System — math macro definitions
+# Single source of truth for all LaTeX / MathJax notation.
+#
+# After editing, regenerate outputs:
+#   python generate-macros.py
+#
+# Generated outputs (committed — consumers do not need Python to build):
+#   generated/macros.tex           → include in Quarto PDF preamble
+#   generated/mathjax-macros.html  → include in Quarto HTML / Astro <head>
+#
+# Format (mirrors MathJax tex.macros):
+#   no args:  name: "\\latex-body"
+#   N args:   name: ["\\latex-body", N]   (use #1, #2, ... for arguments)
+
+# ─── Vectors & matrices ───────────────────────────────────────────────────────
+vect:      ["\\boldsymbol{#1}", 1]
+mat:       ["\\mathbf{#1}",     1]
+
+# ─── Transpose & inverse ──────────────────────────────────────────────────────
+transpose: "^{\\mathsf{T}}"
+inverse:   "^{-1}"
+
+# ─── Number sets ──────────────────────────────────────────────────────────────
+Real:      "\\mathbb{R}"
+
+# ─── Norms & absolute values ──────────────────────────────────────────────────
+norm:      ["\\left\\lVert #1 \\right\\rVert", 1]
+abs:       ["\\left\\lvert #1 \\right\\rvert",  1]
+set:       ["\\left\\{ #1 \\right\\}",          1]
+
+# ─── Linear algebra operators ─────────────────────────────────────────────────
+diag:      "\\operatorname{diag}"
+trace:     "\\operatorname{tr}"
+rank:      "\\operatorname{rank}"
+
+# ─── Optimization ─────────────────────────────────────────────────────────────
+argmin:    "\\operatorname*{arg\\,min}"
+argmax:    "\\operatorname*{arg\\,max}"
+
+# ─── Calculus ─────────────────────────────────────────────────────────────────
+dd:        "\\mathrm{d}"
+pd:        ["\\frac{\\partial #1}{\\partial #2}", 2]
+od:        ["\\frac{\\mathrm{d}\\, #1}{\\mathrm{d}\\, #2}", 2]

@@ -1,0 +1,75 @@
+// Content System — base design tokens
+// Single source of truth for all design decisions.
+//
+// All values use !default so brand overlays can override
+// any token by defining it BEFORE importing this file.
+//
+// Usage:
+//   Direct:  @import "path/to/tokens/base";
+//   Branded: @import "path/to/tokens/brands/personal";  (imports base internally)
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+
+// Core stacks — brand overlays swap in custom fonts here
+$font-sans:    -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif !default;
+$font-mono:    "SFMono-Regular", "JetBrains Mono", "Menlo", monospace             !default;
+$font-serif:   "Charter", "Georgia", serif                                         !default;
+
+// Display and retro stacks — brand overlays provide custom fonts (e.g. Grotesky, Topaz)
+$font-display: $font-sans  !default;
+$font-retro:   $font-mono  !default;
+
+// ─── Color — Base Palette ─────────────────────────────────────────────────────
+
+$color-bg:     #ffffff !default;
+$color-text:   #111827 !default;  // unified: portfolio #111827 / publisher #151515
+$color-muted:  #666666 !default;
+$color-rule:   #dddddd !default;
+$color-accent: #2457ff !default;  // engineering blue; brand overlays may override
+
+// ─── Color — Semantic UI ──────────────────────────────────────────────────────
+
+$color-code-bg: #f6f6f6 !default;
+
+// Engineering block backgrounds — each block type has a distinct tint
+$color-note-bg:        #f5f8ff !default;
+$color-warning-bg:     #fff7e6 !default;
+$color-decision-bg:    #f3fbf7 !default;
+$color-requirement-bg: #f7f4ff !default;
+$color-test-bg:        #f2fbff !default;
+$color-assumption-bg:  #fdfaf4 !default;
+$color-risk-bg:        #fff4f4 !default;
+
+// ─── Spacing Scale ────────────────────────────────────────────────────────────
+
+$space-1:  0.25rem !default;   //  4px
+$space-2:  0.5rem  !default;   //  8px
+$space-3:  0.75rem !default;   // 12px
+$space-4:  1rem    !default;   // 16px
+$space-6:  1.5rem  !default;   // 24px
+$space-8:  2rem    !default;   // 32px
+$space-12: 3rem    !default;   // 48px
+
+// ─── Border Radius ────────────────────────────────────────────────────────────
+
+$radius-sm: 4px  !default;
+$radius-md: 8px  !default;
+$radius-lg: 14px !default;
+
+// ─── Layout ───────────────────────────────────────────────────────────────────
+
+$content-width: 860px  !default;
+$wide-width:    1160px !default;
+$page-gutter:   1.5rem !default;
+
+// Derived — do not override directly; change $page-gutter instead
+$grid-gap: calc(#{$page-gutter} / 4) !default;
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+
+$bp-md: 1080px !default;   // tablet threshold
+$bp-sm: 640px  !default;   // mobile threshold
+
+// ─── Navigation ──────────────────────────────────────────────────────────────
+
+$nav-h: 8vh !default;

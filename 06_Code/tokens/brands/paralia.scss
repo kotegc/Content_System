@@ -1,0 +1,25 @@
+// Paralia brand
+//
+// Placeholder — override values here as the Paralia visual identity is defined.
+// All unset tokens fall through to base defaults.
+//
+// Usage:
+//   @import "path/to/tokens/brands/paralia";
+//
+// Override pattern — define any token before the @import:
+//
+//   $color-accent:  #your-brand-color;
+//   $font-sans:     "Your Brand Font", sans-serif;
+//   $font-display:  "Your Display Font", sans-serif;
+//   @import "../base";
+
+// ─── Paralia overrides (TBD) ─────────────────────────────────────────────────
+
+// $color-accent:  #000000;    // define when Paralia palette is decided
+// $color-text:    #111827;    // define if differs from base
+// $font-sans:     "...";      // define when Paralia typeface is chosen
+// $font-display:  "...";      // define when Paralia display face is chosen
+
+// ─── Import base ─────────────────────────────────────────────────────────────
+
+@import "../base";

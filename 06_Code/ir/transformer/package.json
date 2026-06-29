@@ -1,0 +1,13 @@
+{
+  "name": "@content-system/ir-transformer",
+  "version": "1.0.0",
+  "description": "Transforms Sanity GROQ responses into IRDocument format",
+  "type": "module",
+  "main": "sanity-to-ir.js",
+  "exports": {
+    ".": "./sanity-to-ir.js"
+  },
+  "peerDependencies": {
+    "@sanity/client": ">=7.0.0"
+  }
+}

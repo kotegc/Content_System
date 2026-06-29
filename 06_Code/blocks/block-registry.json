@@ -1,0 +1,379 @@
+{
+  "version": "1.0.0",
+  "description": "Canonical block type registry for the unified content system. All renderers treat this as the authoritative list of block types, their fields, and their fallback policies.",
+  "categories": {
+    "content": "General content blocks — text, images, data visualizations",
+    "reasoning": "Engineering reasoning blocks — decisions, requirements, test results, etc.",
+    "structure": "Structural/layout blocks — grids, galleries",
+    "meta": "Document metadata blocks — project biography, team info"
+  },
+  "rendererFallbackPolicy": {
+    "full": "Render with full interactive/visual fidelity",
+    "static-image": "Render as a static image (must be provided in block or generated at build time)",
+    "linearized": "Render items sequentially without special layout",
+    "caption": "Render the caption field only, omitting the media",
+    "inline": "Render as a simple inline text representation",
+    "omit": "Do not render this block in this format"
+  },
+  "blocks": {
+    "text": {
+      "label": "Text",
+      "category": "content",
+      "description": "Rich text body content using Portable Text format. Supports headings (h1–h4), paragraphs, bold, italic, links, blockquotes, and bullet/numbered lists.",
+      "origin": "portfolio",
+      "sanityType": "textBlock",
+      "quartoEquivalent": "markdown prose section",
+      "fields": {
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "full"
+      }
+    },
+    "image": {
+      "label": "Image",
+      "category": "content",
+      "description": "A single image with optional adjacent text. The textSide field controls whether the text appears to the left, right, above, or below the image.",
+      "origin": "portfolio",
+      "sanityType": "imageBlock",
+      "quartoEquivalent": "figure with optional text layout",
+      "fields": {
+        "imageUrl": { "type": "string", "required": true },
+        "alt":      { "type": "string", "required": true },
+        "title":    { "type": "string", "required": false },
+        "text":     { "type": "string", "required": false },
+        "textSide": { "type": "enum", "values": ["left", "right", "top", "bottom"], "required": false }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "full"
+      }
+    },
+    "imageGrid": {
+      "label": "Image Grid",
+      "category": "structure",
+      "description": "A grid of images with optional per-image labels and a shared caption. Column count controls the grid density.",
+      "origin": "portfolio",
+      "sanityType": "imageGridBlock",
+      "quartoEquivalent": "figure layout with subfigures",
+      "fields": {
+        "images":  { "type": "array", "items": "{ url: string, alt?: string, label?: string }", "required": true },
+        "columns": { "type": "number", "min": 1, "max": 8, "required": false },
+        "caption": { "type": "string", "required": false }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "linearized",
+        "revealjs": "linearized",
+        "markdown": "linearized"
+      }
+    },
+    "model3d": {
+      "label": "3D Model",
+      "category": "content",
+      "description": "An interactive 3D model viewer using the model-viewer web component. Web-native; other renderers use the fallback.",
+      "origin": "portfolio",
+      "sanityType": "model3DBlock",
+      "quartoEquivalent": "none — fallback only",
+      "fields": {
+        "modelUrl": { "type": "string", "required": true },
+        "caption":  { "type": "string", "required": false },
+        "fallback": { "type": "IRFallback", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "static-image",
+        "revealjs": "static-image",
+        "markdown": "caption"
+      }
+    },
+    "html": {
+      "label": "Embedded HTML",
+      "category": "content",
+      "description": "An embedded HTML file, typically a Jupyter notebook export. Web-native; non-web renderers show caption only.",
+      "origin": "portfolio",
+      "sanityType": "htmlBlock",
+      "quartoEquivalent": "none — fallback only",
+      "fields": {
+        "htmlUrl": { "type": "string", "required": true },
+        "caption": { "type": "string", "required": false },
+        "fallback": { "type": "IRFallback", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "caption",
+        "revealjs": "omit",
+        "markdown": "omit"
+      }
+    },
+    "plotly": {
+      "label": "Plotly Chart",
+      "category": "content",
+      "description": "An interactive Plotly chart specified as a JSON object. Web-native interactive; other renderers use static PNG fallback if provided.",
+      "origin": "portfolio",
+      "sanityType": "plotlyBlock",
+      "quartoEquivalent": "OJS cell or static figure",
+      "fields": {
+        "chartSpec": { "type": "object", "required": true },
+        "caption":   { "type": "string", "required": false },
+        "fallback":  { "type": "IRFallback", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "static-image",
+        "revealjs": "static-image",
+        "markdown": "caption"
+      }
+    },
+    "dynaGrid": {
+      "label": "Dynamic Grid",
+      "category": "structure",
+      "description": "A masonry-style image grid where each image has explicit position (x, y) and size (w, h) on an 8×8 unit grid. Supports optional adjacent text.",
+      "origin": "portfolio",
+      "sanityType": "dynaGridBlock",
+      "quartoEquivalent": "figure layout (linearized)",
+      "fields": {
+        "items":    { "type": "array", "items": "{ imageUrl, alt, x, y, w, h }", "required": true },
+        "title":    { "type": "string", "required": false },
+        "text":     { "type": "string", "required": false },
+        "textSide": { "type": "enum", "values": ["left", "right", "top", "bottom"], "required": false }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "linearized",
+        "revealjs": "linearized",
+        "markdown": "linearized"
+      }
+    },
+    "projectBio": {
+      "label": "Project Bio",
+      "category": "meta",
+      "description": "Project-level metadata block: title, abstract, roles, and contributors. Typically the first block in a project case study.",
+      "origin": "portfolio",
+      "sanityType": "projectBioBlock",
+      "quartoEquivalent": "YAML frontmatter / title block",
+      "fields": {
+        "projectTitle":  { "type": "string", "required": true },
+        "abstract":      { "type": "string", "required": true },
+        "roles":         { "type": "array", "items": "string", "required": true },
+        "contributors":  { "type": "array", "items": "{ name: string, role: string }", "required": false }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "full"
+      }
+    },
+    "contentCards": {
+      "label": "Content Cards",
+      "category": "structure",
+      "description": "A grid of cards, each with an optional image, title, and bullet list. Layout controls row vs. stack presentation.",
+      "origin": "portfolio",
+      "sanityType": "contentCardsBlock",
+      "quartoEquivalent": "definition list or table",
+      "fields": {
+        "cards":     { "type": "array", "items": "{ title?, imageUrl?, imageAlt?, bullets[] }", "required": true },
+        "layout":    { "type": "enum", "values": ["row", "stack"], "required": true },
+        "singleRow": { "type": "boolean", "required": false }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "linearized",
+        "revealjs": "linearized",
+        "markdown": "linearized"
+      }
+    },
+    "gallery": {
+      "label": "Gallery",
+      "category": "structure",
+      "description": "A simple image gallery with auto-fit grid layout. Simpler than imageGrid — no explicit column count or per-image labels.",
+      "origin": "publisher",
+      "sanityType": "galleryBlock",
+      "quartoEquivalent": "::: {.gallery} div",
+      "fields": {
+        "images":  { "type": "array", "items": "{ url: string, alt?: string }", "required": true },
+        "caption": { "type": "string", "required": false }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "linearized",
+        "revealjs": "linearized",
+        "markdown": "linearized"
+      }
+    },
+    "math": {
+      "label": "Math",
+      "category": "content",
+      "description": "A mathematical expression in LaTeX notation. Rendered via MathJax on web and natively by LaTeX on PDF.",
+      "origin": "unified",
+      "sanityType": "mathBlock",
+      "quartoEquivalent": "$$...$$  or  $...$",
+      "fields": {
+        "source":   { "type": "string", "required": true },
+        "notation": { "type": "enum", "values": ["latex"], "required": true },
+        "display":  { "type": "enum", "values": ["block", "inline"], "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "decision": {
+      "label": "Design Decision",
+      "category": "reasoning",
+      "description": "A design or architectural decision with its rationale. Rendered as a distinctive callout box.",
+      "origin": "publisher",
+      "sanityType": "decisionBlock",
+      "quartoEquivalent": "::: {.decision title=\"...\"}",
+      "fields": {
+        "title":   { "type": "string", "required": false },
+        "id":      { "type": "string", "required": false },
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "requirement": {
+      "label": "Requirement",
+      "category": "reasoning",
+      "description": "A formal requirement statement. Supports an identifier and priority level.",
+      "origin": "publisher",
+      "sanityType": "requirementBlock",
+      "quartoEquivalent": "::: {.requirement id=\"...\" priority=\"...\"}",
+      "fields": {
+        "id":       { "type": "string", "required": false },
+        "priority": { "type": "enum", "values": ["high", "medium", "low"], "required": false },
+        "content":  { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "testResult": {
+      "label": "Test Result",
+      "category": "reasoning",
+      "description": "A test or validation outcome with pass/fail/partial status.",
+      "origin": "publisher",
+      "sanityType": "testResultBlock",
+      "quartoEquivalent": "::: {.test-result status=\"...\"}",
+      "fields": {
+        "status":  { "type": "enum", "values": ["pass", "fail", "partial"], "required": true },
+        "title":   { "type": "string", "required": false },
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "warning": {
+      "label": "Warning",
+      "category": "reasoning",
+      "description": "A prominent warning callout. Used for known limitations, safety concerns, or critical caveats.",
+      "origin": "publisher",
+      "sanityType": "warningBlock",
+      "quartoEquivalent": "::: {.warning title=\"...\"}",
+      "fields": {
+        "title":   { "type": "string", "required": false },
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "note": {
+      "label": "Note",
+      "category": "reasoning",
+      "description": "An informational callout for supplementary context or clarification.",
+      "origin": "publisher",
+      "sanityType": "noteBlock",
+      "quartoEquivalent": "::: {.note title=\"...\"}",
+      "fields": {
+        "title":   { "type": "string", "required": false },
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "assumption": {
+      "label": "Assumption",
+      "category": "reasoning",
+      "description": "A stated assumption underlying the design or analysis.",
+      "origin": "publisher",
+      "sanityType": "assumptionBlock",
+      "quartoEquivalent": "::: {.assumption}",
+      "fields": {
+        "title":   { "type": "string", "required": false },
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "risk": {
+      "label": "Risk",
+      "category": "reasoning",
+      "description": "An identified risk with optional severity rating.",
+      "origin": "publisher",
+      "sanityType": "riskBlock",
+      "quartoEquivalent": "::: {.risk}",
+      "fields": {
+        "severity": { "type": "enum", "values": ["high", "medium", "low"], "required": false },
+        "title":    { "type": "string", "required": false },
+        "content":  { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    },
+    "designDecision": {
+      "label": "Design Decision (alias)",
+      "category": "reasoning",
+      "description": "Alias for 'decision'. Preserved for compatibility with Publisher's Lua filter which recognizes both 'design-decision' and 'decision' class names. Treated identically to 'decision' by all renderers.",
+      "origin": "publisher",
+      "sanityType": "designDecisionBlock",
+      "quartoEquivalent": "::: {.design-decision title=\"...\"}",
+      "fields": {
+        "title":   { "type": "string", "required": false },
+        "id":      { "type": "string", "required": false },
+        "content": { "type": "array", "items": "PortableTextBlock", "required": true }
+      },
+      "rendererFallback": {
+        "web": "full",
+        "pdf": "full",
+        "revealjs": "full",
+        "markdown": "inline"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+// Personal engineering brand — George Kote
+//
+// Overrides base tokens with brand-specific values,
+// then imports base so all remaining tokens use their defaults.
+//
+// Usage:
+//   @import "path/to/tokens/brands/personal";
+//
+// Custom fonts must be loaded separately by the renderer:
+//   - Grotesky:    /fonts/Grotesky.ttf        (display headings)
+//   - Topaz:       /fonts/topaz_regular.ttf    (retro/mono accent)
+//   - IBM Plex Sans + Mono via Google Fonts
+
+// ─── Font overrides ───────────────────────────────────────────────────────────
+
+$font-sans:    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+$font-mono:    "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+$font-display: "Grotesky", "IBM Plex Sans", sans-serif;
+$font-retro:   "Topaz", "IBM Plex Mono", monospace;
+
+// ─── Color overrides ──────────────────────────────────────────────────────────
+
+// Portfolio identity is monochromatic black/white.
+// The engineering blue accent (#2457ff) is intentionally kept from base
+// so that engineering callout blocks (decision, requirement, etc.) retain
+// their standard blue treatment even on the portfolio.
+// No override needed for $color-accent.
+
+// Slightly warmer text than base default:
+$color-text: #111827;
+
+// ─── Import base (fills in all remaining tokens with !default values) ─────────
+
+@import "../base";
