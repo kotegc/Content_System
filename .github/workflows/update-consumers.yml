@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '06_Code/tokens/brands/compiled/**'
+      - '06_Code/assets/**'
   workflow_dispatch:
 
 jobs:
@@ -14,9 +15,9 @@ jobs:
       fail-fast: false
       matrix:
         consumer:
-          - { repo: "kotegc/My_Portfolio",  submodule: "06_Code/system" }
-          - { repo: "kotegc/Publisher",      submodule: "06_Code/system" }
-          - { repo: "kotegc/Paralia",        submodule: "06_Code/content-system" }
+          - { repo: "kotegc/My_Portfolio",  submodule: "06_Code/system", favicon_dest: "06_Code/My_Portfolio/astro/public/favicon.svg" }
+          - { repo: "kotegc/Publisher",      submodule: "06_Code/system", favicon_dest: "" }
+          - { repo: "kotegc/Paralia",        submodule: "06_Code/content-system", favicon_dest: "" }
     steps:
       - uses: actions/create-github-app-token@v1
         id: app-token
@@ -39,14 +40,19 @@ jobs:
           git submodule init ${{ matrix.consumer.submodule }}
           git submodule update --remote ${{ matrix.consumer.submodule }}
           git add ${{ matrix.consumer.submodule }}
+          if [ -n "${{ matrix.consumer.favicon_dest }}" ]; then
+            cp "${{ matrix.consumer.submodule }}/06_Code/assets/brands/personal/icons/favicon.svg" \
+               "${{ matrix.consumer.favicon_dest }}" 2>/dev/null || true
+            git add "${{ matrix.consumer.favicon_dest }}"
+          fi
           git diff --staged --quiet && echo "No changes, skipping PR" && exit 0
           BRANCH="chore/update-content-system-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "$BRANCH"
-          git commit -m "chore: update Content System submodule (brand tokens)"
+          git commit -m "chore: update Content System submodule (brand assets)"
           git push origin "$BRANCH"
           gh pr create \
             --title "chore: update Content System submodule" \
-            --body "Brand tokens updated in Content System. Review token diff in \`06_Code/tokens/brands/compiled/\` before merging." \
+            --body "Brand assets updated in Content System. Review changes in \`06_Code/tokens/brands/compiled/\` and \`06_Code/assets/\` before merging." \
             --base main \
             --head "$BRANCH"
         env:
