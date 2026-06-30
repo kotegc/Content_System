@@ -1,0 +1,9 @@
+{
+  "name": "content-system-tokens",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Design token compiler. Run after editing brands/*.json.",
+  "scripts": {
+    "compile": "node compile.js"
+  }
+}

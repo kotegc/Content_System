@@ -1,80 +1,16 @@
-// Personal engineering brand — George Kote
+// Personal engineering brand — George Kote — SCSS entry point
 //
-// All variables are defined before @import "../base" so they are visible
-// to any file that imports this one. Variables that also exist in base.scss
-// override that file's !default values. Variables unique to this brand
-// (extension tokens) are also defined here — base simply ignores them.
+// Source of truth: brands/personal.json
+// After editing personal.json, run: node tokens/compile.js (or npm run compile)
+// Then commit both brands/personal.json and brands/compiled/personal.scss.
 //
 // Custom fonts must be loaded separately by the renderer:
 //   - Grotesky:       /fonts/Grotesky.ttf           (display headings)
 //   - Topaz:          /fonts/topaz_regular.ttf       (retro/mono accent)
 //   - IBM Plex Sans + Mono via Google Fonts
+//
+// SCSS consumers (Publisher, Portfolio) import this file.
+// Web/Python/C# consumers use brands/compiled/personal.css or brands/compiled/personal.json.
 
-// ─── Typefaces (override base stacks) ────────────────────────────────────────
-
-$font-sans:    "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
-$font-mono:    "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
-$font-display: "Grotesky", "IBM Plex Sans", sans-serif;
-$font-retro:   "Topaz", "IBM Plex Mono", monospace;
-
-// ─── Colors — overrides of base tokens ───────────────────────────────────────
-
-// Personal brand is monochromatic — black on white with opacity for hierarchy.
-// Engineering accent blue (#2457ff from base) is intentionally kept so that
-// engineering reasoning blocks (decision, requirement, etc.) retain their
-// standard blue treatment.
-
-$color-bg:     #ffffff;
-$color-text:   #111827;
-$color-muted:  rgba(0, 0, 0, 0.45);  // list markers, secondary text
-$color-rule:   rgba(0, 0, 0, 0.15);  // card/block borders (base uses solid #ddd)
-$color-accent: #000000;              // personal brand accent = black, not blue
-
-// ─── Colors — brand extensions (not in base) ─────────────────────────────────
-
-$color-black:       #000000;             // pure black — nav bg, footer bg, links
-$color-rule-md:     rgba(0, 0, 0, 0.20); // blockquote border, major dividers
-$color-rule-strong: rgba(0, 0, 0, 0.30); // footer rule, strong dividers
-
-// On-dark surface colors — footer, nav overlay, any black-bg section
-$color-on-dark:        #ffffff;
-$color-on-dark-muted:  rgba(255, 255, 255, 0.60); // copyright, secondary on dark
-$color-on-dark-subtle: rgba(255, 255, 255, 0.75); // links on dark
-$color-on-dark-rule:   rgba(255, 255, 255, 0.18); // dividers on dark, card bg
-$color-on-dark-menu:   rgba(255, 255, 255, 0.15); // nav menu item separators
-
-// Overlay colors — carousel dots, image scrims
-$color-overlay-light: rgba(0, 0, 0, 0.25); // inactive dot, subtle scrim
-$color-overlay-dark:  rgba(0, 0, 0, 0.80); // active dot, heavy scrim
-
-// ─── Type scale extensions (not in base) ─────────────────────────────────────
-
-$text-display: 34px;      // .display class — large hero text
-$text-h1:      2.5rem;    // page titles
-$text-h2:      1.75rem;   // section headings
-$text-h3:      12pt;      // subsection headings
-$text-body:    10pt;      // body paragraphs and list items
-$text-sm:      0.875rem;  // meta, captions, labels
-$text-ui:      11pt;      // buttons, interactive labels
-
-// ─── Letter-spacing extensions (not in base) ─────────────────────────────────
-
-$tracking-display: -0.065em;  // .display class — tight Grotesky heading
-$tracking-tight:   -0.035em;  // h1, h2 — standard tight heading tracking
-$tracking-base:    -0.01em;   // kicker text, footer labels
-
-// ─── Type weights (not in base) ──────────────────────────────────────────────
-
-$weight-bold:     700;
-$weight-semibold: 600;
-$weight-medium:   500;
-$weight-regular:  400;
-
-// ─── Layout extensions (not in base) ─────────────────────────────────────────
-
-$logo-h:          46px;   // navbar logo height
-$section-spacing: 4rem;   // portfolio vertical rhythm (larger than base $space-12 = 3rem)
-
-// ─── Base tokens (fills in remaining tokens with !default values) ─────────────
-
-@import "../base";
+@import "compiled/personal";  // brand variable declarations (generated)
+@import "../base";             // fill remaining tokens with !default values

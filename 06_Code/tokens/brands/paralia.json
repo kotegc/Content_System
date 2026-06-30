@@ -1,0 +1,18 @@
+{
+  "brand": "paralia",
+  "tokens": {
+    "color-accent":    "#183EFC",
+    "color-bg":        "#0b0e15",
+    "color-text":      "#e5ebf2",
+    "color-muted":     "#8394a8",
+    "color-rule":      "#232b3b",
+    "font-sans":       "\"Inter\", \"Helvetica Neue\", Arial, sans-serif",
+    "font-mono":       "\"JetBrains Mono\", \"SF Mono\", ui-monospace, Menlo, monospace",
+    "color-panel":     "#111720",
+    "color-panel-2":   "#18202c",
+    "color-ink-faint": "#4f5f78",
+    "color-signal":    "#ff7a45",
+    "color-ok":        "#4fd6a0",
+    "color-grid":      "#161e2d"
+  }
+}

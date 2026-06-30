@@ -1,30 +1,11 @@
-// Paralia brand
+// Paralia brand — SCSS entry point
 //
-// Canonical source of truth for the Paralia visual identity.
-// Extracted from PAR-2026_PARALIA/06_Code/paralia/paradigm/viewer/index.html (:root).
+// Source of truth: brands/paralia.json
+// After editing paralia.json, run: node tokens/compile.js (or npm run compile)
+// Then commit both brands/paralia.json and brands/compiled/paralia.scss.
 //
-// Usage:
-//   @import "path/to/tokens/brands/paralia";
+// SCSS consumers (Publisher, Portfolio) import this file.
+// Web/Python/C# consumers use brands/compiled/paralia.css or brands/compiled/paralia.json.
 
-// ─── Base token overrides ─────────────────────────────────────────────────────
-
-$color-accent:  #183EFC;   // brand blue — UI active state, scan point cloud
-$color-bg:      #0b0e15;   // dark surface
-$color-text:    #e5ebf2;   // primary text
-$color-muted:   #8394a8;   // secondary text, labels
-$color-rule:    #232b3b;   // borders, dividers
-$font-sans:     "Inter", "Helvetica Neue", Arial, sans-serif;
-$font-mono:     "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
-
-// ─── Import base ─────────────────────────────────────────────────────────────
-
-@import "../base";
-
-// ─── Paralia extension tokens (no base equivalent) ───────────────────────────
-
-$color-panel:   #111720;   // sidebar / primary surface
-$color-panel-2: #18202c;   // secondary surface (dropdowns, tabs)
-$color-ink-faint: #4f5f78; // tertiary text, hints
-$color-signal:  #ff7a45;   // warm accent — calibration / warning state
-$color-ok:      #4fd6a0;   // success / locked state
-$color-grid:    #161e2d;   // 3D viewport background grid
+@import "compiled/paralia";   // brand variable declarations (generated)
+@import "../base";             // fill remaining tokens with !default values
