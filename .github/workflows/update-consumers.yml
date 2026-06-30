@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         consumer:
-          - { repo: "kotegc/My_Portfolio",  submodule: "06_Code/content-system" }
-          - { repo: "kotegc/Publisher",      submodule: "06_Code/content-system" }
+          - { repo: "kotegc/My_Portfolio",  submodule: "06_Code/system" }
+          - { repo: "kotegc/Publisher",      submodule: "06_Code/system" }
           - { repo: "kotegc/Paralia",        submodule: "06_Code/content-system" }
     steps:
       - uses: actions/create-github-app-token@v1
