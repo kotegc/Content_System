@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '06_Code/tokens/brands/compiled/**'
+  workflow_dispatch:
 
 jobs:
   update-consumers:
@@ -22,7 +23,6 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          repositories: Content_System,My_Portfolio,Publisher,Paralia
 
       - uses: actions/checkout@v4
         with:
@@ -34,6 +34,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
           git submodule init ${{ matrix.consumer.submodule }}
           git submodule update --remote ${{ matrix.consumer.submodule }}
           git add ${{ matrix.consumer.submodule }}
