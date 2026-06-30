@@ -17,7 +17,7 @@ export default defineType({
       title: 'Abstract',
       type: 'text',
       rows: 4,
-      description: 'Short intro. We'll tune the limit later.',
+      description: "Short intro. We'll tune the limit later.",
       validation: (Rule) =>
         Rule.required().max(240).warning('Try to keep this short for the tile.'),
     }),
