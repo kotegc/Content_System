@@ -28,3 +28,8 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Sanity Studio
+06_Code/sanity/node_modules/
+06_Code/sanity/.sanity/
+06_Code/sanity/dist/

@@ -1,0 +1,28 @@
+{
+  "name": "content-system-studio",
+  "private": true,
+  "version": "1.0.0",
+  "main": "package.json",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "keywords": ["sanity"],
+  "dependencies": {
+    "@sanity/code-input": "^6.0.4",
+    "@sanity/vision": "^4.13.0",
+    "react": "^19.1",
+    "react-dom": "^19.1",
+    "react-rnd": "^10.5.2",
+    "sanity": "^4.13.0",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@sanity/cli": "^5.1.0",
+    "@sanity/eslint-config-studio": "^5.0.2",
+    "@types/react": "^19.1",
+    "typescript": "^5.8"
+  }
+}
