@@ -51,6 +51,16 @@ for (const file of brandFiles) {
     `}`,
     ``,
   ]
+  if (source.light) {
+    const lightEntries = Object.entries(source.light)
+    cssLines.push(
+      `/* light-mode overrides */`,
+      `body.light {`,
+      ...lightEntries.map(([k, v]) => `  --${k}: ${v};`),
+      `}`,
+      ``,
+    )
+  }
   writeFileSync(resolve(compiledDir, `${brand}.css`), cssLines.join('\n'), 'utf8')
 
   // ── SCSS variable declarations ─────────────────────────────────────────────
@@ -66,6 +76,7 @@ for (const file of brandFiles) {
   // ── Flat JSON ──────────────────────────────────────────────────────────────
   const flat = { _brand: brand }
   for (const [k, v] of entries) flat[k] = v
+  if (source.light) flat._light = { ...source.light }
   writeFileSync(
     resolve(compiledDir, `${brand}.json`),
     JSON.stringify(flat, null, 2) + '\n',

@@ -14,5 +14,16 @@
     "color-signal":    "#ff7a45",
     "color-ok":        "#4fd6a0",
     "color-grid":      "#161e2d"
+  },
+  "light": {
+    "color-bg":        "#f5f7fa",
+    "color-panel":     "#f5f7fa",
+    "color-panel-2":   "#edf0f5",
+    "color-rule":      "#d4dae6",
+    "color-text":      "#0d1117",
+    "color-muted":     "#4a5568",
+    "color-ink-faint": "#718096",
+    "color-ok":        "#1a9e6b",
+    "color-grid":      "#dce4ef"
   }
 }

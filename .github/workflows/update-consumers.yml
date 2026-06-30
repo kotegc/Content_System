@@ -1,0 +1,50 @@
+name: Propagate brand tokens to consumer repos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '06_Code/tokens/brands/compiled/**'
+
+jobs:
+  update-consumers:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        consumer:
+          - { repo: "kotegc/My_Portfolio",  submodule: "06_Code/content-system" }
+          - { repo: "kotegc/Publisher",      submodule: "06_Code/content-system" }
+          - { repo: "kotegc/Paralia",        submodule: "06_Code/content-system" }
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          repositories: My_Portfolio,Publisher,Paralia
+
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.consumer.repo }}
+          token: ${{ steps.app-token.outputs.token }}
+          submodules: true
+
+      - name: Update submodule and open PR
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git submodule update --remote ${{ matrix.consumer.submodule }}
+          git add ${{ matrix.consumer.submodule }}
+          git diff --staged --quiet && echo "No changes, skipping PR" && exit 0
+          BRANCH="chore/update-content-system-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
+          git commit -m "chore: update Content System submodule (brand tokens)"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "chore: update Content System submodule" \
+            --body "Brand tokens updated in Content System. Review token diff in \`06_Code/tokens/brands/compiled/\` before merging." \
+            --base main \
+            --head "$BRANCH"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
