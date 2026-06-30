@@ -215,7 +215,10 @@ function transformBlock(block) {
       };
 
     default:
-      console.warn(`[sanity-to-ir] Unknown block type: ${block._type} — skipping`);
+      console.error(
+        `[sanity-to-ir] Unknown block type: "${block._type}" — block dropped.\n` +
+        `  If this is a new block type, add a case to transformBlock() in sanity-to-ir.js.`
+      );
       return null;
   }
 }
