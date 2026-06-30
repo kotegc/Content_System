@@ -10,7 +10,7 @@
   --color-muted: rgba(0, 0, 0, 0.45);
   --color-rule: rgba(0, 0, 0, 0.15);
   --color-accent: #000000;
-  --color-black: #FF4500;
+  --color-black: #000000;
   --color-rule-md: rgba(0, 0, 0, 0.20);
   --color-rule-strong: rgba(0, 0, 0, 0.30);
   --color-on-dark: #ffffff;
@@ -36,4 +36,10 @@
   --weight-regular: 400;
   --logo-h: 46px;
   --section-spacing: 4rem;
+  --grid-gap: calc(1.5rem / 4);
+  --page-gutter: 1.5rem;
+  --nav-h-desktop: 8vh;
+  --nav-h-mobile: 8vh;
+  --space-text: 0.75rem;
+  --space-block: 2rem;
 }
