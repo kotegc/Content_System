@@ -37,4 +37,9 @@
   /* card */
   --card-radius: var(--radius-lg);
   --card-padding: var(--space-lg);
+
+  /* loader */
+  --loader-bar-height: 3px;
+  --loader-bar-width: 160px;
+  --loader-color: var(--color-accent);
 }

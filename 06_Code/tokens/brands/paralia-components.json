@@ -43,6 +43,12 @@
       "_doc": "Cards and panel islands use large rounding in Paralia.",
       "radius":      "var(--radius-lg)",
       "padding":     "var(--space-lg)"
+    },
+    "loader": {
+      "_doc": "Thin animated progress bar used on loading/transition screens.",
+      "bar-height": "3px",
+      "bar-width":  "160px",
+      "color":      "var(--color-accent)"
     }
   }
 }
