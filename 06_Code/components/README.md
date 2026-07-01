@@ -180,18 +180,29 @@ A styled button. Apply to any `<button>` or `<a>` element.
 | `cs-btn--primary` | Solid accent background, white text |
 | `cs-btn--secondary` | Transparent background, border, text-colored |
 | `cs-btn--ghost` | No background or border, accent-colored text |
+| `cs-btn--chip` | Chip-scale sizing and muted text; signal-orange on hover. Pair with `cs-btn--secondary`. |
+
+The `--chip` modifier is the action-button counterpart to `<chip-toggle>` — same visual language (chip sizing, muted text, rule border), but a one-shot action rather than a stateful toggle. Use for low-emphasis inline actions like "Sign out".
+
+```html
+<button class="cs-btn cs-btn--secondary cs-btn--chip" onclick="...">Sign out</button>
+```
 
 **CSS vars consumed**
 
 | Var | Source | Controls |
 |-----|--------|----------|
 | `--btn-radius` | components | border-radius |
-| `--btn-padding-x/y` | components | padding |
-| `--btn-font-size` | components | font-size |
+| `--btn-padding-x/y` | components | base padding (overridden by `--chip` modifier) |
+| `--btn-font-size` | components | base font-size (overridden by `--chip` modifier) |
 | `--btn-font-weight` | components | font-weight |
+| `--chip-font-size` | components | font-size when `--chip` modifier applied |
+| `--chip-padding-x/y` | components | padding when `--chip` modifier applied |
 | `--color-accent` | primitive | primary variant color |
 | `--color-text` | primitive | secondary variant text |
-| `--color-rule` | primitive | secondary variant border |
+| `--color-muted` | primitive | chip modifier text + secondary hover border |
+| `--color-rule` | primitive | secondary/chip variant border |
+| `--color-signal` | primitive | chip modifier hover text |
 | `--color-panel` | primitive | ghost hover background |
 
 ---

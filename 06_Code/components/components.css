@@ -62,6 +62,17 @@
 }
 .cs-btn--ghost:hover:not(:disabled) { background: var(--color-panel, #f5f5f5); }
 
+.cs-btn--chip {
+  font-size:    var(--chip-font-size,  11px);
+  padding:      var(--chip-padding-y,  6px) var(--chip-padding-x, 10px);
+  color:        var(--color-muted, #666);
+  border-color: var(--color-rule, #ddd);
+}
+.cs-btn--chip:hover:not(:disabled) {
+  color:        var(--color-signal, #f56500);
+  border-color: var(--color-rule, #ddd);
+}
+
 .cs-btn:focus-visible {
   outline:        2px solid var(--color-accent, #2457ff);
   outline-offset: 2px;
