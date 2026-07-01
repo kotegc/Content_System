@@ -37,8 +37,8 @@
       "padding-y":   "3px"
     },
     "card": {
-      "_doc": "Cards use medium rounding and the standard panel spacing.",
-      "radius":      "var(--radius-md)",
+      "_doc": "Cards and panel islands use large rounding in Paralia.",
+      "radius":      "var(--radius-lg)",
       "padding":     "var(--space-lg)"
     }
   }

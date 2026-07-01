@@ -32,6 +32,6 @@
   --badge-padding-y: 3px;
 
   /* card */
-  --card-radius: var(--radius-md);
+  --card-radius: var(--radius-lg);
   --card-padding: var(--space-lg);
 }
