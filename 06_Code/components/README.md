@@ -173,36 +173,57 @@ A styled button. Apply to any `<button>` or `<a>` element.
 <a href="/dashboard" class="cs-btn cs-btn--primary">Dashboard</a>
 ```
 
-**Modifier classes**
+**Architecture: shape vs. color**
 
-| Class | Appearance |
-|-------|------------|
+`.cs-btn` separates two concerns:
+
+- **Shape** — `border-radius`, `padding`, `font-size`, `font-weight` — read from brand tokens (`--btn-radius`, `--btn-padding-x/y`, etc.) and are consistent across every button use within a brand. A brand that declares pill-shaped buttons gets pill-shaped buttons everywhere, no exceptions.
+
+- **Color** — `background`, `color (text)`, `border-color`, and their hover states — controlled via CSS custom property hooks. Canonical variants set these hooks. App-level CSS can override any hook using a more-specific selector (see below).
+
+**Canonical variants**
+
+| Class | Color treatment |
+|-------|----------------|
 | `cs-btn--primary` | Solid accent background, white text |
-| `cs-btn--secondary` | Transparent background, border, text-colored |
-| `cs-btn--ghost` | No background or border, accent-colored text |
-| `cs-btn--chip` | Chip-scale sizing and muted text; signal-orange on hover. Pair with `cs-btn--secondary`. |
+| `cs-btn--secondary` | Transparent background, rule border, text-colored; hover darkens border |
+| `cs-btn--ghost` | No background or border, accent-colored text; hover adds panel background |
 
-The `--chip` modifier is the action-button counterpart to `<chip-toggle>` — same visual language (chip sizing, muted text, rule border), but a one-shot action rather than a stateful toggle. Use for low-emphasis inline actions like "Sign out".
+**Color hook API** — override any hook in app-level CSS
 
-```html
-<button class="cs-btn cs-btn--secondary cs-btn--chip" onclick="...">Sign out</button>
+```css
+/* Example: a low-emphasis button that fills signal-orange on hover */
+.cs-btn.signout-btn {                   /* two-class selector beats one-class variants */
+  --btn-text:         var(--color-muted);
+  --btn-hover-bg:     var(--color-signal);
+  --btn-hover-text:   #fff;
+  --btn-hover-border: var(--color-signal);
+}
 ```
 
-**CSS vars consumed**
+| Hook | Resting | Hover counterpart |
+|------|---------|------------------|
+| `--btn-bg` | background | `--btn-hover-bg` (falls back to `--btn-bg`) |
+| `--btn-text` | text color | `--btn-hover-text` (falls back to `--btn-text`) |
+| `--btn-border` | border color | `--btn-hover-border` (falls back to `--btn-border`) |
+
+**CSS vars consumed (shape)**
 
 | Var | Source | Controls |
 |-----|--------|----------|
 | `--btn-radius` | components | border-radius |
-| `--btn-padding-x/y` | components | base padding (overridden by `--chip` modifier) |
-| `--btn-font-size` | components | base font-size (overridden by `--chip` modifier) |
+| `--btn-padding-x/y` | components | padding |
+| `--btn-font-size` | components | font-size |
 | `--btn-font-weight` | components | font-weight |
-| `--chip-font-size` | components | font-size when `--chip` modifier applied |
-| `--chip-padding-x/y` | components | padding when `--chip` modifier applied |
-| `--color-accent` | primitive | primary variant color |
-| `--color-text` | primitive | secondary variant text |
-| `--color-muted` | primitive | chip modifier text + secondary hover border |
-| `--color-rule` | primitive | secondary/chip variant border |
-| `--color-signal` | primitive | chip modifier hover text |
+
+**Primitive tokens used by canonical variants**
+
+| Var | Source | Used by |
+|-----|--------|---------|
+| `--color-accent` | primitive | primary bg/border; ghost text; focus ring |
+| `--color-text` | primitive | secondary text |
+| `--color-rule` | primitive | secondary border |
+| `--color-muted` | primitive | secondary hover border |
 | `--color-panel` | primitive | ghost hover background |
 
 ---

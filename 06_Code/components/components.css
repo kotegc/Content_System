@@ -16,8 +16,22 @@
 
 
 /* ── Button ──────────────────────────────────────────────────────────────── */
+/*
+ * Shape = brand (--btn-radius, padding, font-size) — consistent across all
+ * button uses within a brand, set by compile.js from the components token file.
+ *
+ * Color = use-case — controlled via CSS custom property hooks. Variants set
+ * these hooks; app-level CSS can override any of them with a more-specific
+ * selector (e.g. .cs-btn.my-btn { --btn-text: ...; }).
+ *
+ * Color hooks:
+ *   --btn-bg, --btn-text, --btn-border          (resting state)
+ *   --btn-hover-bg, --btn-hover-text,           (hover overrides; each falls
+ *   --btn-hover-border                           back to its resting hook)
+ */
 
 .cs-btn {
+  /* Shape — brand tokens */
   display:         inline-flex;
   align-items:     center;
   gap:             6px;
@@ -26,12 +40,22 @@
   font-size:       var(--btn-font-size,   13px);
   font-weight:     var(--btn-font-weight, 500);
   font-family:     inherit;
-  border:          1px solid transparent;
   cursor:          pointer;
   user-select:     none;
   text-decoration: none;
   white-space:     nowrap;
   transition:      background .12s, color .12s, border-color .12s, opacity .12s;
+
+  /* Color — reads hooks with primitive token fallbacks */
+  background:  var(--btn-bg,     transparent);
+  color:       var(--btn-text,   var(--color-text, #111));
+  border:      1px solid var(--btn-border, transparent);
+}
+
+.cs-btn:hover:not(:disabled) {
+  background:   var(--btn-hover-bg,     var(--btn-bg,     transparent));
+  color:        var(--btn-hover-text,   var(--btn-text,   var(--color-text, #111)));
+  border-color: var(--btn-hover-border, var(--btn-border, transparent));
 }
 
 .cs-btn:disabled,
@@ -41,37 +65,24 @@
   pointer-events: none;
 }
 
+/* Variants — color hooks only, no shape overrides */
+
 .cs-btn--primary {
-  background:   var(--color-accent, #2457ff);
-  color:        #fff;
-  border-color: var(--color-accent, #2457ff);
+  --btn-bg:     var(--color-accent, #2457ff);
+  --btn-text:   #fff;
+  --btn-border: var(--color-accent, #2457ff);
 }
 .cs-btn--primary:hover:not(:disabled) { opacity: .88; }
 
 .cs-btn--secondary {
-  background:   transparent;
-  color:        var(--color-text, #111);
-  border-color: var(--color-rule, #ddd);
+  --btn-border:       var(--color-rule,  #ddd);
+  --btn-text:         var(--color-text,  #111);
+  --btn-hover-border: var(--color-muted, #666);
 }
-.cs-btn--secondary:hover:not(:disabled) { border-color: var(--color-muted, #666); }
 
 .cs-btn--ghost {
-  background:   transparent;
-  color:        var(--color-accent, #2457ff);
-  border-color: transparent;
-}
-.cs-btn--ghost:hover:not(:disabled) { background: var(--color-panel, #f5f5f5); }
-
-.cs-btn--chip {
-  font-size:    var(--chip-font-size,  11px);
-  padding:      var(--chip-padding-y,  6px) var(--chip-padding-x, 10px);
-  color:        var(--color-muted, #666);
-  border-color: var(--color-rule, #ddd);
-}
-.cs-btn--chip:hover:not(:disabled) {
-  background:   var(--color-signal, #f56500);
-  color:        #fff;
-  border-color: var(--color-signal, #f56500);
+  --btn-text:     var(--color-accent, #2457ff);
+  --btn-hover-bg: var(--color-panel,  #f5f5f5);
 }
 
 .cs-btn:focus-visible {
