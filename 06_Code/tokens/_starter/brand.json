@@ -1,0 +1,51 @@
+{
+  "_doc": "Primitive design tokens for a new brand. Copy to brands/{name}.json, set brand to your brand name, fill in values, then run compile.js. Keys starting with _ are annotations and are ignored by the compiler.",
+  "brand": "YOUR_BRAND_NAME",
+  "tokens": {
+    "_section_colors": "── Core palette ────────────────────────────────────────────",
+    "color-bg":        "#ffffff",
+    "color-text":      "#111827",
+    "color-accent":    "#2457ff",
+
+    "_section_surfaces": "── Surfaces, borders, subdued text ─────────────────────────",
+    "color-muted":     "rgba(0,0,0,0.5)",
+    "color-rule":      "rgba(0,0,0,0.1)",
+    "color-panel":     "#f5f5f5",
+    "color-panel-2":   "#eeeeee",
+    "color-ink-faint": "rgba(0,0,0,0.3)",
+    "color-grid":      "#e5e7eb",
+
+    "_section_data": "── Data and status colors ──────────────────────────────────",
+    "color-signal":    "#f56500",
+    "color-ok":        "#22c55e",
+
+    "_section_type": "── Typeface stacks ─────────────────────────────────────────",
+    "font-sans":       "-apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+    "font-mono":       "'JetBrains Mono', 'SF Mono', ui-monospace, monospace",
+    "font-display":    "var(--font-sans)",
+
+    "_section_radius": "── Border radius scale (used by component tokens via var()) ─",
+    "radius-sm":       "4px",
+    "radius-md":       "8px",
+    "radius-lg":       "12px",
+    "radius-pill":     "999px",
+
+    "_section_space": "── Spacing scale (used by component tokens via var()) ────────",
+    "space-xs":        "4px",
+    "space-sm":        "8px",
+    "space-md":        "16px",
+    "space-lg":        "24px",
+    "space-xl":        "40px"
+  },
+  "light": {
+    "_doc": "Light-mode overrides. Only include tokens that change in light mode. Applied via body.light class.",
+    "color-bg":        "#ffffff",
+    "color-text":      "#111827",
+    "color-muted":     "rgba(0,0,0,0.5)",
+    "color-rule":      "rgba(0,0,0,0.1)",
+    "color-panel":     "#f5f5f5",
+    "color-panel-2":   "#eeeeee",
+    "color-ink-faint": "rgba(0,0,0,0.3)",
+    "color-grid":      "#e5e7eb"
+  }
+}

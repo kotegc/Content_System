@@ -1,0 +1,39 @@
+{
+  "_doc": "Personal brand component rules. Currently using system defaults — customize as the personal brand's UI needs evolve.",
+  "brand": "personal",
+  "components": {
+    "button": {
+      "radius":      "6px",
+      "padding-x":   "16px",
+      "padding-y":   "8px",
+      "font-weight": "500",
+      "font-size":   "13px"
+    },
+    "chip": {
+      "radius":      "999px",
+      "font-size":   "11px",
+      "padding-x":   "10px",
+      "padding-y":   "6px"
+    },
+    "slider": {
+      "track-height": "3px",
+      "thumb-size":   "14px"
+    },
+    "input": {
+      "radius":      "6px",
+      "padding-x":   "10px",
+      "padding-y":   "8px",
+      "font-size":   "13px"
+    },
+    "badge": {
+      "radius":      "4px",
+      "font-size":   "11px",
+      "padding-x":   "8px",
+      "padding-y":   "3px"
+    },
+    "card": {
+      "radius":      "10px",
+      "padding":     "20px"
+    }
+  }
+}

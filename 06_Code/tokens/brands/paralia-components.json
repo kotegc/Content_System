@@ -1,0 +1,45 @@
+{
+  "_doc": "Paralia brand component rules. Edit here, run compile.js to regenerate compiled/paralia-components.css.",
+  "brand": "paralia",
+  "components": {
+    "button": {
+      "_doc": "Paralia buttons are pill-shaped, matching the chip toggle and brand aesthetic.",
+      "radius":      "var(--radius-pill)",
+      "padding-x":   "16px",
+      "padding-y":   "9px",
+      "font-weight": "500",
+      "font-size":   "13px"
+    },
+    "chip": {
+      "_doc": "Chip toggles are pill-shaped in Paralia.",
+      "radius":      "var(--radius-pill)",
+      "font-size":   "11px",
+      "padding-x":   "10px",
+      "padding-y":   "6px"
+    },
+    "slider": {
+      "_doc": "Slider track is thin (3px), thumb uses --color-signal (orange).",
+      "track-height": "3px",
+      "thumb-size":   "14px"
+    },
+    "input": {
+      "_doc": "Inputs have medium rounding, matching the slightly softer Paralia aesthetic.",
+      "radius":      "var(--radius-md)",
+      "padding-x":   "10px",
+      "padding-y":   "8px",
+      "font-size":   "13px"
+    },
+    "badge": {
+      "_doc": "Badges are small and sharp-cornered for data density.",
+      "radius":      "var(--radius-sm)",
+      "font-size":   "11px",
+      "padding-x":   "8px",
+      "padding-y":   "3px"
+    },
+    "card": {
+      "_doc": "Cards use medium rounding and the standard panel spacing.",
+      "radius":      "var(--radius-md)",
+      "padding":     "var(--space-lg)"
+    }
+  }
+}

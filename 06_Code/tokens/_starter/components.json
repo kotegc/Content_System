@@ -1,0 +1,47 @@
+{
+  "_doc": "Component design rules for a new brand. Copy to brands/{name}-components.json, set brand to your brand name, customize values, then run compile.js. These values control shape, spacing, and scale — colors flow automatically from your brand primitive tokens. Keys starting with _ are annotations ignored by the compiler.",
+  "brand": "YOUR_BRAND_NAME",
+  "components": {
+    "button": {
+      "_doc": "Styled button. Use with: <button class='cs-btn cs-btn--primary'>. Variants: --primary, --secondary, --ghost.",
+      "_radius_hint": "For pill buttons: var(--radius-pill). For standard rounded: var(--radius-md). For sharp: 4px.",
+      "radius":      "6px",
+      "padding-x":   "16px",
+      "padding-y":   "8px",
+      "font-weight": "500",
+      "font-size":   "13px"
+    },
+    "chip": {
+      "_doc": "Toggle chip / binary switch. Use with: <chip-toggle data-key='x' data-on>label</chip-toggle>.",
+      "_radius_hint": "Pills are brand-typical: var(--radius-pill). Rounded squares: var(--radius-sm).",
+      "radius":      "999px",
+      "font-size":   "11px",
+      "padding-x":   "10px",
+      "padding-y":   "6px"
+    },
+    "slider": {
+      "_doc": "Labeled range slider. Use with: <labeled-slider name='x' label='...' min='0' max='100' value='50'>. Colors come from --color-signal and --color-grid.",
+      "track-height": "3px",
+      "thumb-size":   "14px"
+    },
+    "input": {
+      "_doc": "Text input field. Use with: <label class='cs-input-group'><span class='cs-input-label'>Label</span><input class='cs-input' type='text'></label>.",
+      "radius":      "6px",
+      "padding-x":   "10px",
+      "padding-y":   "8px",
+      "font-size":   "13px"
+    },
+    "badge": {
+      "_doc": "Inline tag or status label. Use with: <span class='cs-badge'>Tag</span>.",
+      "radius":      "4px",
+      "font-size":   "11px",
+      "padding-x":   "8px",
+      "padding-y":   "3px"
+    },
+    "card": {
+      "_doc": "Content container with brand surface and border. Use with: <div class='cs-card'>...</div>.",
+      "radius":      "10px",
+      "padding":     "20px"
+    }
+  }
+}

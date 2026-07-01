@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Content System — CSS Component Classes
+   Reads level-2 component tokens (--btn-*, --chip-*, --input-*, etc.)
+   with fallbacks so all components work even without brand tokens loaded.
+
+   Usage pattern:
+     <button class="cs-btn cs-btn--primary">Submit</button>
+     <span class="cs-badge">v1.2</span>
+     <div class="cs-card">...</div>
+     <label class="cs-input-group">
+       <span class="cs-input-label">Name</span>
+       <input class="cs-input" type="text">
+     </label>
+     <select class="cs-select">...</select>
+   ========================================================================== */
+
+
+/* ── Button ──────────────────────────────────────────────────────────────── */
+
+.cs-btn {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             6px;
+  border-radius:   var(--btn-radius,      6px);
+  padding:         var(--btn-padding-y,   8px) var(--btn-padding-x, 16px);
+  font-size:       var(--btn-font-size,   13px);
+  font-weight:     var(--btn-font-weight, 500);
+  font-family:     inherit;
+  border:          1px solid transparent;
+  cursor:          pointer;
+  user-select:     none;
+  text-decoration: none;
+  white-space:     nowrap;
+  transition:      background .12s, color .12s, border-color .12s, opacity .12s;
+}
+
+.cs-btn:disabled,
+.cs-btn[aria-disabled="true"] {
+  opacity: .45;
+  cursor:  not-allowed;
+  pointer-events: none;
+}
+
+.cs-btn--primary {
+  background:   var(--color-accent, #2457ff);
+  color:        #fff;
+  border-color: var(--color-accent, #2457ff);
+}
+.cs-btn--primary:hover:not(:disabled) { opacity: .88; }
+
+.cs-btn--secondary {
+  background:   transparent;
+  color:        var(--color-text, #111);
+  border-color: var(--color-rule, #ddd);
+}
+.cs-btn--secondary:hover:not(:disabled) { border-color: var(--color-muted, #666); }
+
+.cs-btn--ghost {
+  background:   transparent;
+  color:        var(--color-accent, #2457ff);
+  border-color: transparent;
+}
+.cs-btn--ghost:hover:not(:disabled) { background: var(--color-panel, #f5f5f5); }
+
+.cs-btn:focus-visible {
+  outline:        2px solid var(--color-accent, #2457ff);
+  outline-offset: 2px;
+}
+
+
+/* ── Badge ───────────────────────────────────────────────────────────────── */
+
+.cs-badge {
+  display:       inline-flex;
+  align-items:   center;
+  border-radius: var(--badge-radius,    4px);
+  font-size:     var(--badge-font-size, 11px);
+  padding:       var(--badge-padding-y, 3px) var(--badge-padding-x, 8px);
+  background:    var(--color-panel,    #f5f5f5);
+  color:         var(--color-muted,    #666);
+  border:        1px solid var(--color-rule, #ddd);
+  white-space:   nowrap;
+  font-weight:   500;
+  letter-spacing: .02em;
+}
+
+
+/* ── Card ────────────────────────────────────────────────────────────────── */
+
+.cs-card {
+  border-radius: var(--card-radius,  10px);
+  padding:       var(--card-padding, 20px);
+  background:    var(--color-panel,  #f5f5f5);
+  border:        1px solid var(--color-rule, #ddd);
+}
+
+
+/* ── Input group ─────────────────────────────────────────────────────────── */
+/* Wraps a label + input into a single vertical unit.
+   Use <label> as the outer element for accessible association. */
+
+.cs-input-group {
+  display:        flex;
+  flex-direction: column;
+  gap:            5px;
+}
+
+.cs-input-label {
+  font-size: 12px;
+  color:     var(--color-muted, #666);
+}
+
+.cs-input,
+.cs-select {
+  background:    var(--color-panel,     #f5f5f5);
+  color:         var(--color-text,      #111);
+  border:        1px solid var(--color-rule, #ddd);
+  border-radius: var(--input-radius,    6px);
+  padding:       var(--input-padding-y, 8px) var(--input-padding-x, 10px);
+  font-size:     var(--input-font-size, 13px);
+  font-family:   inherit;
+  width:         100%;
+  outline:       none;
+  transition:    border-color .12s;
+  appearance:    none;
+  -webkit-appearance: none;
+}
+
+.cs-input:focus,
+.cs-select:focus {
+  border-color: var(--color-accent, #2457ff);
+}
+
+.cs-input::placeholder { color: var(--color-muted, #666); opacity: .7; }
