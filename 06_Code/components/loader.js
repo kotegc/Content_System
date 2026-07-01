@@ -13,7 +13,7 @@ class CsLoader extends HTMLElement {
           background:      var(--color-bg, #0b0e15);
         }
         svg {
-          width:    min(280px, 36vw);
+          width:    min(200px, 26vw);
           overflow: visible;
         }
         .bar, .wave, .tail { fill: var(--loader-color, #183EFC); }
