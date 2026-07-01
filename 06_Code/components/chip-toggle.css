@@ -3,7 +3,7 @@
 chip-toggle {
   display: inline-block;
   font-size:     var(--chip-font-size,  11px);
-  padding:       var(--chip-padding-y,  6px) var(--chip-padding-x, 10px);
+  padding:       var(--chip-padding-y,  0.5em) var(--chip-padding-x, 0.9em);
   border:        1px solid var(--color-rule, #ddd);
   border-radius: var(--chip-radius,     999px);
   color:         var(--color-muted,     #666);

@@ -4,16 +4,16 @@
 
   /* button */
   --btn-radius: var(--radius-pill);
-  --btn-padding-x: 16px;
-  --btn-padding-y: 9px;
+  --btn-padding-x: 1.25em;
+  --btn-padding-y: 0.7em;
   --btn-font-weight: 500;
-  --btn-font-size: 13px;
+  --btn-font-size: var(--font-size-body);
 
   /* chip */
   --chip-radius: var(--radius-pill);
-  --chip-font-size: 11px;
-  --chip-padding-x: 10px;
-  --chip-padding-y: 6px;
+  --chip-font-size: var(--font-size-sm);
+  --chip-padding-x: 0.9em;
+  --chip-padding-y: 0.5em;
 
   /* slider */
   --slider-track-height: 3px;
@@ -21,13 +21,13 @@
 
   /* input */
   --input-radius: var(--radius-pill);
-  --input-padding-x: 10px;
-  --input-padding-y: 8px;
-  --input-font-size: 13px;
+  --input-padding-x: 0.75em;
+  --input-padding-y: 0.6em;
+  --input-font-size: var(--font-size-body);
 
   /* badge */
   --badge-radius: var(--radius-sm);
-  --badge-font-size: 11px;
+  --badge-font-size: var(--font-size-sm);
   --badge-padding-x: 8px;
   --badge-padding-y: 3px;
 
