@@ -23,8 +23,8 @@
       "thumb-size":   "14px"
     },
     "input": {
-      "_doc": "Inputs have medium rounding, matching the slightly softer Paralia aesthetic.",
-      "radius":      "var(--radius-md)",
+      "_doc": "Inputs are pill-shaped in Paralia, matching buttons and chips.",
+      "radius":      "var(--radius-pill)",
       "padding-x":   "10px",
       "padding-y":   "8px",
       "font-size":   "13px"

@@ -20,7 +20,7 @@
   --slider-thumb-size: 14px;
 
   /* input */
-  --input-radius: var(--radius-md);
+  --input-radius: var(--radius-pill);
   --input-padding-x: 10px;
   --input-padding-y: 8px;
   --input-font-size: 13px;
