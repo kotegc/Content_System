@@ -8,6 +8,7 @@
   "font-sans": "\"Inter\", \"Helvetica Neue\", Arial, sans-serif",
   "font-mono": "\"JetBrains Mono\", \"SF Mono\", ui-monospace, Menlo, monospace",
   "font-display": "\"Outfit\", sans-serif",
+  "font-display-2": "\"JetBrains Mono\", \"SF Mono\", ui-monospace, Menlo, monospace",
   "color-panel": "#111720",
   "color-panel-2": "#18202c",
   "color-ink-faint": "#4f5f78",
