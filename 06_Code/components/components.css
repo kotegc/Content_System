@@ -69,8 +69,9 @@
   border-color: var(--color-rule, #ddd);
 }
 .cs-btn--chip:hover:not(:disabled) {
-  color:        var(--color-signal, #f56500);
-  border-color: var(--color-rule, #ddd);
+  background:   var(--color-signal, #f56500);
+  color:        #fff;
+  border-color: var(--color-signal, #f56500);
 }
 
 .cs-btn:focus-visible {
