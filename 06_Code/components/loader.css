@@ -1,51 +1,15 @@
-/* cs-loader — full-screen loading/transition screen
+/* cs-loader — full-screen loading/transition screen.
+ * Register loader.js for the animated <cs-loader> web component.
+ * This file provides a bare fallback display for environments without JS.
  *
- * Usage:
- *   <div class="cs-loader">
- *     <div class="cs-loader__bar"></div>
- *     <span class="cs-loader__text">Loading…</span>
- *   </div>
- *
- * Reads level-2 component tokens (--loader-*) with generic fallbacks.
+ * Usage: <cs-loader>Loading…</cs-loader>
  */
 
-.cs-loader {
+cs-loader {
   display:         flex;
   flex-direction:  column;
   align-items:     center;
   justify-content: center;
-  gap:             20px;
   min-height:      100dvh;
   background:      var(--color-bg, #0b0e15);
-}
-
-.cs-loader__bar {
-  width:         var(--loader-bar-width,  160px);
-  height:        var(--loader-bar-height, 3px);
-  border-radius: 999px;
-  overflow:      hidden;
-  position:      relative;
-}
-
-.cs-loader__bar::after {
-  content:       '';
-  position:      absolute;
-  inset-block:   0;
-  width:         55%;
-  background:    var(--loader-color, #183EFC);
-  border-radius: inherit;
-  animation:     cs-loader-slide 1.4s ease-in-out infinite;
-}
-
-@keyframes cs-loader-slide {
-  0%   { left: -55%; }
-  100% { left: 160%; }
-}
-
-.cs-loader__text {
-  font-family:    var(--font-mono, 'JetBrains Mono', monospace);
-  font-size:      var(--font-size-sm, 11px);
-  color:          var(--color-muted, #8394a8);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
