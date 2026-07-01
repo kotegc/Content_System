@@ -39,7 +39,7 @@
   padding:         var(--btn-padding-y,   0.7em) var(--btn-padding-x, 1.25em);
   font-size:       var(--btn-font-size,   13px);
   font-weight:     var(--btn-font-weight, 500);
-  font-family:     inherit;
+  font-family:     var(--btn-font-family, inherit);
   cursor:          pointer;
   user-select:     none;
   text-decoration: none;
@@ -141,7 +141,7 @@
   border-radius: var(--input-radius,    6px);
   padding:       var(--input-padding-y, 0.6em) var(--input-padding-x, 0.75em);
   font-size:     var(--input-font-size, 13px);
-  font-family:   inherit;
+  font-family:   var(--input-font-family, inherit);
   width:         100%;
   outline:       none;
   transition:    border-color .12s;

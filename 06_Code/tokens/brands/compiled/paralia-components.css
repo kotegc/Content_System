@@ -8,12 +8,14 @@
   --btn-padding-y: 0.7em;
   --btn-font-weight: 500;
   --btn-font-size: var(--font-size-body);
+  --btn-font-family: var(--font-ui);
 
   /* chip */
   --chip-radius: var(--radius-pill);
   --chip-font-size: var(--font-size-sm);
   --chip-padding-x: 0.9em;
   --chip-padding-y: 0.5em;
+  --chip-font-family: var(--font-ui);
 
   /* slider */
   --slider-track-height: 3px;
@@ -24,6 +26,7 @@
   --input-padding-x: 0.75em;
   --input-padding-y: 0.6em;
   --input-font-size: var(--font-size-body);
+  --input-font-family: var(--font-ui);
 
   /* badge */
   --badge-radius: var(--radius-sm);

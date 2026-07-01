@@ -4,18 +4,20 @@
   "components": {
     "button": {
       "_doc": "Paralia buttons are pill-shaped, matching the chip toggle and brand aesthetic. Padding is em-based so height scales proportionally if --btn-font-size is overridden to a different type tier.",
-      "radius":      "var(--radius-pill)",
-      "padding-x":   "1.25em",
-      "padding-y":   "0.7em",
-      "font-weight": "500",
-      "font-size":   "var(--font-size-body)"
+      "radius":       "var(--radius-pill)",
+      "padding-x":    "1.25em",
+      "padding-y":    "0.7em",
+      "font-weight":  "500",
+      "font-size":    "var(--font-size-body)",
+      "font-family":  "var(--font-ui)"
     },
     "chip": {
       "_doc": "Chip toggles are pill-shaped in Paralia. Smaller than buttons by default (font-size-sm).",
       "radius":      "var(--radius-pill)",
       "font-size":   "var(--font-size-sm)",
       "padding-x":   "0.9em",
-      "padding-y":   "0.5em"
+      "padding-y":   "0.5em",
+      "font-family": "var(--font-ui)"
     },
     "slider": {
       "_doc": "Slider track is thin (3px), thumb uses --color-signal (orange).",
@@ -27,7 +29,8 @@
       "radius":      "var(--radius-pill)",
       "padding-x":   "0.75em",
       "padding-y":   "0.6em",
-      "font-size":   "var(--font-size-body)"
+      "font-size":   "var(--font-size-body)",
+      "font-family": "var(--font-ui)"
     },
     "badge": {
       "_doc": "Badges are small and sharp-cornered for data density. Px-based (not a scalable pill control).",
