@@ -41,6 +41,7 @@
   padding:          var(--shelf-padding-y, 14px) var(--shelf-padding-x, 20px);
   background:       var(--shelf-bg,        #111720);
   border:           1px solid var(--shelf-border, #232b3b);
+  box-shadow:       var(--shelf-inset-shadow, inset 0 2px 8px rgba(0, 0, 0, 0.45));
 }
 
 /* Optional trailing action (e.g. a "Take a tour" button) pinned flush to the
@@ -74,11 +75,12 @@
   height:     auto;
   display:    block;
   transition: transform .15s ease;
+  filter:     drop-shadow(var(--shelf-icon-shadow, 0 3px 6px rgba(0, 0, 0, 0.4)));
 }
 
 .cs-shelf__tile:hover .cs-shelf__icon,
 .cs-shelf__tile:focus-visible .cs-shelf__icon {
-  transform: scale(var(--shelf-icon-hover-scale, 1.15));
+  transform: translateY(var(--shelf-icon-hover-translate, -3px)) scale(var(--shelf-icon-hover-scale, 1.15));
 }
 
 .cs-shelf__label {
@@ -109,12 +111,14 @@
   cursor: default;
 }
 .cs-shelf__tile--inactive .cs-shelf__icon {
-  filter:  grayscale(1);
+  /* filter doesn't merge across rules — restate the base drop-shadow
+     alongside grayscale so inactive icons keep both */
+  filter:  grayscale(1) drop-shadow(var(--shelf-icon-shadow, 0 3px 6px rgba(0, 0, 0, 0.4)));
   opacity: var(--shelf-inactive-opacity, 0.4);
 }
 .cs-shelf__tile--inactive .cs-shelf__label {
   opacity: var(--shelf-inactive-opacity, 0.4);
 }
 .cs-shelf__tile--inactive:hover .cs-shelf__icon {
-  transform: scale(var(--shelf-icon-hover-scale-inactive, 1.05));
+  transform: translateY(var(--shelf-icon-hover-translate, -3px)) scale(var(--shelf-icon-hover-scale-inactive, 1.05));
 }
