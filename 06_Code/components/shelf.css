@@ -16,17 +16,28 @@
          <img class="cs-shelf__icon" src="..." alt="">
          <span class="cs-shelf__label">Parasol</span>
        </span>
+       <a class="cs-btn cs-btn--ghost cs-shelf__action" href="/tour">Take a tour</a>
      </div>
    ========================================================================== */
 
 .cs-shelf {
-  display:         inline-flex;
+  display:         flex;
   align-items:     center;
+  justify-content: flex-start;
+  width:            100%;
+  max-width:        var(--shelf-max-width,  640px);
   gap:              var(--shelf-gap,       28px);
   border-radius:    var(--shelf-radius,    12px);
   padding:          var(--shelf-padding-y, 14px) var(--shelf-padding-x, 20px);
   background:       var(--shelf-bg,        #111720);
   border:           1px solid var(--shelf-border, #232b3b);
+}
+
+/* Optional trailing action (e.g. a "Take a tour" button) pinned flush to the
+   shelf's right edge, regardless of how many tiles precede it. The gap this
+   leaves between the last tile and the action is the "room to grow" look. */
+.cs-shelf__action {
+  margin-left: auto;
 }
 
 .cs-shelf__tile {
@@ -41,9 +52,15 @@
 }
 
 .cs-shelf__icon {
-  width:   var(--shelf-icon-size, 30px);
-  height:  var(--shelf-icon-size, 30px);
-  display: block;
+  width:      var(--shelf-icon-size, 30px);
+  height:     var(--shelf-icon-size, 30px);
+  display:    block;
+  transition: transform .15s ease;
+}
+
+.cs-shelf__tile:hover .cs-shelf__icon,
+.cs-shelf__tile:focus-visible .cs-shelf__icon {
+  transform: scale(var(--shelf-icon-hover-scale, 1.15));
 }
 
 .cs-shelf__label {
@@ -65,12 +82,13 @@
   border-radius:  4px;
 }
 
-/* Inactive / not-yet-launchable tiles — desaturated + dimmed, non-interactive.
-   Mirrors .cs-btn:disabled's opacity+pointer-events precedent, plus an
-   explicit grayscale filter since desaturation was requested beyond dimming. */
+/* Inactive / not-yet-launchable tiles — desaturated + dimmed. These are plain
+   (non-anchor) elements with no href and no tabindex, so they're already
+   unclickable and out of tab order without needing pointer-events: none —
+   leaving hover enabled lets them still give subtle feedback (a smaller
+   icon-hover-scale below) instead of feeling completely dead. */
 .cs-shelf__tile--inactive {
-  cursor:         default;
-  pointer-events: none;
+  cursor: default;
 }
 .cs-shelf__tile--inactive .cs-shelf__icon {
   filter:  grayscale(1);
@@ -78,4 +96,7 @@
 }
 .cs-shelf__tile--inactive .cs-shelf__label {
   opacity: var(--shelf-inactive-opacity, 0.4);
+}
+.cs-shelf__tile--inactive:hover .cs-shelf__icon {
+  transform: scale(var(--shelf-icon-hover-scale-inactive, 1.05));
 }

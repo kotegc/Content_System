@@ -294,10 +294,14 @@ A long tray holding app-launcher tiles (icon + label) in a row. Unlike `.cs-card
     <img class="cs-shelf__icon" src="/parasol-icon.svg" alt="">
     <span class="cs-shelf__label">Parasol</span>
   </span>
+
+  <a class="cs-btn cs-btn--ghost cs-shelf__action" href="/tour">Take a tour</a>
 </div>
 ```
 
-Use a real `<a>` for launchable apps. For apps that aren't built yet, use a non-anchor element (e.g. `<span>`) with `cs-shelf__tile--inactive` and `aria-disabled="true"` — this keeps it out of tab order and click-inert without needing a disabled-anchor hack.
+Use a real `<a>` for launchable apps. For apps that aren't built yet, use a non-anchor element (e.g. `<span>`) with `cs-shelf__tile--inactive` and `aria-disabled="true"` — this keeps it out of tab order and click-inert without needing a disabled-anchor hack. Inactive tiles still respond to hover (a smaller icon-scale than active tiles) so they read as "not yet available" rather than fully inert.
+
+The shelf fills its container up to `--shelf-max-width` and shrinks fluidly below that, so it stays wide on large screens and responsive on small ones. Tiles pack to the left; an optional trailing element with `cs-shelf__action` (e.g. a button) pins itself to the right edge via `margin-left: auto`, leaving a "room to grow" gap between it and the last tile.
 
 **CSS vars consumed**
 
@@ -306,12 +310,15 @@ Use a real `<a>` for launchable apps. For apps that aren't built yet, use a non-
 | `--shelf-radius` | components | border-radius |
 | `--shelf-padding-x/y` | components | padding |
 | `--shelf-gap` | components | gap between tiles |
+| `--shelf-max-width` | components | cap on the shelf's width on large screens |
 | `--shelf-bg` | components | background (literal, not primitive-driven) |
 | `--shelf-border` | components | border color (literal) |
 | `--shelf-text` | components | label color on hover/focus (literal) |
 | `--shelf-label-color` | components | label color, resting (literal) |
 | `--shelf-tile-size` | components | tile width |
 | `--shelf-icon-size` | components | icon width/height |
+| `--shelf-icon-hover-scale` | components | active tile icon hover/focus scale |
+| `--shelf-icon-hover-scale-inactive` | components | inactive tile icon hover scale (smaller than active) |
 | `--shelf-label-font-size` | components | label font-size |
 | `--shelf-inactive-opacity` | components | opacity of inactive tile's icon + label |
 | `--color-accent` | primitive | focus ring |

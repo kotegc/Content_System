@@ -63,7 +63,10 @@
       "tile-size":         "56px",
       "icon-size":         "30px",
       "label-font-size":   "var(--font-size-sm)",
-      "inactive-opacity":  "0.4"
+      "inactive-opacity":  "0.4",
+      "max-width":                 "640px",
+      "icon-hover-scale":          "1.15",
+      "icon-hover-scale-inactive": "1.05"
     }
   }
 }

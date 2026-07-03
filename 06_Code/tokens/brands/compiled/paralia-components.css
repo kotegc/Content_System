@@ -56,4 +56,7 @@
   --shelf-icon-size: 30px;
   --shelf-label-font-size: var(--font-size-sm);
   --shelf-inactive-opacity: 0.4;
+  --shelf-max-width: 640px;
+  --shelf-icon-hover-scale: 1.15;
+  --shelf-icon-hover-scale-inactive: 1.05;
 }
