@@ -1,8 +1,8 @@
 /* ==========================================================================
    App chrome — shared left-rail header, theme toggle, and session-action
    row used by every Paralia viewer app (paradigm, parable, ...).
-   Reads level-2 --header-*/--theme-toggle-* tokens with fallbacks so it
-   works even without brand tokens loaded.
+   Reads level-2 --header-* and --theme-toggle-* tokens with fallbacks so
+   it works even without brand tokens loaded.
 
    Usage pattern:
      <aside>
