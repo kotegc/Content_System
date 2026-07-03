@@ -26,13 +26,21 @@
 
 app-header {
   display:     flex;
-  align-items: center;
+  align-items: flex-end;   /* anchor to a common bottom line instead of centering,
+                              so the header's bottom edge stays put regardless of
+                              how tall any given app's icon happens to render */
+  flex-wrap:   nowrap;     /* never drop to a second line */
   gap:         var(--header-gap, 9px);
+  height:      var(--header-logo-size, 22px);  /* fixes the row's footprint so its
+                                                   bottom edge is deterministic —
+                                                   see app-header .brand-logo below */
 }
 
 app-header .brand-logo {
-  height:      var(--header-logo-size, 22px);
-  width:       auto;
+  width:       var(--header-logo-size, 22px);  /* width-driven: icons share a width
+                                                   but not a height, so size by the
+                                                   dimension that's actually consistent */
+  height:      auto;
   flex-shrink: 0;
   display:     block;
 }
@@ -43,6 +51,7 @@ app-header h1 {
   font-weight:    500;
   margin:         0;
   font-family:    var(--font-display-2, "JetBrains Mono", monospace);
+  white-space:    nowrap;
 }
 
 app-header .tag {
@@ -50,6 +59,7 @@ app-header .tag {
   letter-spacing: var(--header-tag-letter-spacing, .22em);
   text-transform: uppercase;
   color:          var(--color-ink-faint, #718096);
+  white-space:    nowrap;
 }
 
 body.light app-header h1 {
