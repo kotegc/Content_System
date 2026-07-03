@@ -6,7 +6,7 @@ Six core UI components that implement any brand defined in `tokens/brands/`. Eac
 
 ## Quick start
 
-Four lines. That's the full setup for any consumer.
+Five lines. That's the full setup for any consumer.
 
 ```html
 <!-- 1. Primitive brand tokens: colors, fonts, radius scale, spacing scale -->
@@ -18,7 +18,10 @@ Four lines. That's the full setup for any consumer.
 <!-- 3. Component styles (reads 1 + 2; fallbacks keep it working without them) -->
 <link rel="stylesheet" href="{cs}/06_Code/components/components.css">
 
-<!-- 4. Interactive web components (chip-toggle, labeled-slider) -->
+<!-- 4. Viewer-app chrome: header, theme toggle, session-action styling -->
+<link rel="stylesheet" href="{cs}/06_Code/components/app-chrome.css">
+
+<!-- 5. Interactive web components (chip-toggle, labeled-slider, app-header, theme-toggle) -->
 <script type="module" src="{cs}/06_Code/components/index.js"></script>
 ```
 
@@ -34,6 +37,8 @@ Replace `{cs}` with your path to the content-system submodule — typically `06_
 |-----------|------|--------|-------------|
 | [chip-toggle](#chip-toggle) | Web component | `<chip-toggle>` | Binary on/off toggle, pill-shaped by default |
 | [labeled-slider](#labeled-slider) | Web component | `<labeled-slider>` | Range input with live label display |
+| [app-header](#app-header) | Web component | `<app-header>` | Logo + title + subtitle block for a viewer app's left rail |
+| [theme-toggle](#theme-toggle) | Web component | `<theme-toggle>` | Floating light/dark theme toggle button |
 | [cs-btn](#cs-btn) | CSS class | `<button class="cs-btn cs-btn--primary">` | Primary action, secondary, or ghost button |
 | [cs-badge](#cs-badge) | CSS class | `<span class="cs-badge">` | Inline tag, version label, or status chip |
 | [cs-card](#cs-card) | CSS class | `<div class="cs-card">` | Content container with brand surface and border |
@@ -157,6 +162,104 @@ slider.addEventListener('labeled-slider-input', () => {
 | `--color-signal` | primitive | thumb border color |
 | `--color-text` | primitive | label color |
 | `--font-mono` | primitive | value display font |
+
+---
+
+## app-header
+
+Logo + title + subtitle block for a viewer app's left rail (e.g. paradigm, parable). Replaces hand-writing the same header markup in every app.
+
+**Markup**
+
+```html
+<app-header
+  app-title="para.digm"
+  app-subtitle="workbench"
+  logo-src="public/Paradigm_Icon.svg"
+></app-header>
+```
+
+**Attributes**
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|--------------|
+| `app-title` | string | — | Rendered in `<h1>`. Required. |
+| `app-subtitle` | string | — | Rendered in `<span class="tag">`. Optional. |
+| `logo-src` | string | — | `<img>` src. Optional — omit to render no logo. |
+
+The element itself carries `class="brand"` so `.brand`/`.brand h1`/`.brand .tag` styling (see `app-chrome.css`) applies with no selector changes needed by consumers migrating from a hand-written `<div class="brand">`.
+
+**CSS vars consumed**
+
+| Var | Source | Controls |
+|-----|--------|----------|
+| `--header-gap` | components | gap between logo and title block |
+| `--header-logo-size` | components | logo height (width auto-scales, so non-square logos don't distort) |
+| `--header-title-font-size` | components | `<h1>` font-size |
+| `--header-title-letter-spacing` | components | `<h1>` letter-spacing |
+| `--header-tag-font-size` | components | subtitle font-size |
+| `--header-tag-letter-spacing` | components | subtitle letter-spacing |
+| `--font-display-2` | primitive | `<h1>` font-family |
+| `--color-ink-faint` | primitive | subtitle color |
+| `--color-accent` | primitive | `<h1>` color in light mode (`body.light app-header h1`) |
+
+---
+
+## theme-toggle
+
+Floating light/dark theme toggle button, positioned bottom-right of its nearest positioned ancestor (that ancestor — typically an app's main viewport panel — must set `position: relative`).
+
+**Markup**
+
+```html
+<theme-toggle></theme-toggle>
+<theme-toggle default-theme="light"></theme-toggle>
+```
+
+**Attributes**
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|--------------|
+| `default-theme` | `"dark"` \| `"light"` | `"dark"` | Fallback used only when localStorage has no saved preference yet |
+| `storage-key` | string | `"paralia-theme"` | localStorage key — shared across sibling apps on the same origin by design, one theme preference for the whole suite |
+
+**Event**
+
+```js
+document.querySelector('theme-toggle').addEventListener('theme-change', e => {
+  const { theme } = e.detail;   // 'dark' | 'light'
+});
+```
+Fires once on connect (so listeners can sync immediately) and again on every toggle. Apps with theme-reactive rendering (e.g. a 3D scene) should still read the `.theme` property synchronously for their own initial render, rather than relying solely on catching this event in time — module scripts can execute in an order where the event fires before a later listener attaches:
+
+```js
+const toggle = document.querySelector('theme-toggle');
+applyMyTheme(toggle.theme);              // sync initial read, no race
+toggle.addEventListener('theme-change', e => applyMyTheme(e.detail.theme));
+```
+
+**Property**
+
+```js
+document.querySelector('theme-toggle').theme;   // → 'dark' | 'light'
+```
+
+Side effects: toggles a `light` class on `<body>`, persists to `localStorage`. Does not touch any app-specific rendering — purely chrome/UI state.
+
+**CSS vars consumed**
+
+| Var | Source | Controls |
+|-----|--------|----------|
+| `--theme-toggle-radius` | components | border-radius |
+| `--theme-toggle-padding-x/y` | components | padding |
+| `--theme-toggle-font-size` | components | font-size |
+| `--theme-toggle-offset-x/y` | components | distance from the right/bottom edge of its positioned ancestor |
+| `--color-panel` | primitive | background |
+| `--color-rule` | primitive | border |
+| `--color-muted` | primitive | text color |
+| `--color-text` | primitive | hover text color |
+| `--color-accent` | primitive | focus ring |
+| `--font-mono` | primitive | font-family |
 
 ---
 
@@ -373,14 +476,17 @@ A label + input/select pair. Use `<label>` as the outer element so clicking the 
 
 ## Astro / Vite build-time inlining
 
-When a route serves the viewer HTML via `new Response(html)`, relative `<link>` and `<script src>` paths won't resolve correctly in production. The established pattern (see `paradigm.ts`) is to import each asset with Vite's `?raw` suffix and string-replace the link/script tags with inline equivalents:
+When a route serves the viewer HTML via `new Response(html)`, relative `<link>` and `<script src>` paths won't resolve correctly in production. The established pattern (see `Website/src/lib/wireViewerRoute.ts`, which centralizes this for every viewer app) is to import each asset with Vite's `?raw` suffix and string-replace the link/script tags with inline equivalents:
 
 ```typescript
 import paraliaCss      from '{cs}/06_Code/tokens/brands/compiled/paralia.css?raw';
 import paraliaCmpCss   from '{cs}/06_Code/tokens/brands/compiled/paralia-components.css?raw';
 import componentsCss   from '{cs}/06_Code/components/components.css?raw';
+import appChromeCss    from '{cs}/06_Code/components/app-chrome.css?raw';
 import chipToggleJs    from '{cs}/06_Code/components/chip-toggle.js?raw';
 import labeledSliderJs from '{cs}/06_Code/components/labeled-slider.js?raw';
+import appHeaderJs     from '{cs}/06_Code/components/app-header.js?raw';
+import themeToggleJs   from '{cs}/06_Code/components/theme-toggle.js?raw';
 ```
 
 Use `index.js` only for raw-HTML consumers. For inlining, import component files individually (the module-relative imports inside `index.js` don't survive string embedding).

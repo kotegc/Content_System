@@ -70,6 +70,24 @@
       "icon-hover-translate":      "-3px",
       "icon-shadow":               "0 3px 6px rgba(0, 0, 0, 0.4)",
       "inset-shadow":              "inset 0 2px 8px rgba(0, 0, 0, 0.45)"
+    },
+    "header": {
+      "_doc": "Left-rail brand/title block, matching paradigm's original inline header. title-font-size uses var(--font-size-display-2), which happens to equal 17px in Paralia's primitive tokens.",
+      "gap":                  "9px",
+      "logo-size":            "22px",
+      "title-font-size":      "var(--font-size-display-2)",
+      "title-letter-spacing": ".14em",
+      "tag-font-size":        "10px",
+      "tag-letter-spacing":   ".22em"
+    },
+    "theme-toggle": {
+      "_doc": "Floating light/dark toggle pill, matching paradigm's original inline toggle. radius is a literal 999px (not var(--radius-pill), which is only 3px in Paralia's primitives and wouldn't read as a pill here).",
+      "radius":    "999px",
+      "padding-x": "13px",
+      "padding-y": "7px",
+      "font-size": "11px",
+      "offset-x":  "22px",
+      "offset-y":  "22px"
     }
   }
 }

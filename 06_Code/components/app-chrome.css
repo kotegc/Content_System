@@ -1,0 +1,118 @@
+/* ==========================================================================
+   App chrome — shared left-rail header, theme toggle, and session-action
+   row used by every Paralia viewer app (paradigm, parable, ...).
+   Reads level-2 --header-*/--theme-toggle-* tokens with fallbacks so it
+   works even without brand tokens loaded.
+
+   Usage pattern:
+     <aside>
+       <app-header app-title="para.digm" app-subtitle="workbench"
+         logo-src="public/Paradigm_Icon.svg"></app-header>
+       ...
+       <div class="footnote">...</div>
+     </aside>
+     <main style="position:relative">
+       ...
+       <theme-toggle></theme-toggle>
+     </main>
+
+   The .session-actions row (Sign out + Exit) is injected server-side by
+   Website/src/lib/wireViewerRoute.ts, immediately before <div class="footnote">
+   — its classes are documented here alongside the rest of the chrome even
+   though the markup itself never appears in an app's source HTML.
+   ========================================================================== */
+
+/* ── Header / brand block ───────────────────────────────────────────────── */
+
+app-header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--header-gap, 9px);
+}
+
+app-header .brand-logo {
+  height:      var(--header-logo-size, 22px);
+  width:       auto;
+  flex-shrink: 0;
+  display:     block;
+}
+
+app-header h1 {
+  font-size:      var(--header-title-font-size, 17px);
+  letter-spacing: var(--header-title-letter-spacing, .14em);
+  font-weight:    500;
+  margin:         0;
+  font-family:    var(--font-display-2, "JetBrains Mono", monospace);
+}
+
+app-header .tag {
+  font-size:      var(--header-tag-font-size, 10px);
+  letter-spacing: var(--header-tag-letter-spacing, .22em);
+  text-transform: uppercase;
+  color:          var(--color-ink-faint, #718096);
+}
+
+body.light app-header h1 {
+  color: var(--color-accent, #2457ff);
+}
+
+/* ── Theme toggle ────────────────────────────────────────────────────────── */
+/* position:absolute — the nearest positioned ancestor (typically the app's
+   <main> viewport panel) must set position:relative. */
+
+theme-toggle {
+  position:       absolute;
+  right:          var(--theme-toggle-offset-x, 22px);
+  bottom:         var(--theme-toggle-offset-y, 22px);
+  display:        inline-block;
+  background:     var(--color-panel, #f5f5f5);
+  border:         1px solid var(--color-rule, #ddd);
+  border-radius:  var(--theme-toggle-radius, 999px);
+  padding:        var(--theme-toggle-padding-y, 7px) var(--theme-toggle-padding-x, 13px);
+  font-size:      var(--theme-toggle-font-size, 11px);
+  font-family:    var(--font-mono, "JetBrains Mono", monospace);
+  color:          var(--color-muted, #666);
+  cursor:         pointer;
+  letter-spacing: .04em;
+  user-select:    none;
+  transition:     color .15s, border-color .15s, background .15s;
+}
+
+theme-toggle:hover {
+  color:        var(--color-text, #111);
+  border-color: var(--color-muted, #666);
+}
+
+theme-toggle:focus-visible {
+  outline:        2px solid var(--color-accent, #2457ff);
+  outline-offset: 2px;
+}
+
+/* ── Session actions (sign-out + exit) ──────────────────────────────────── */
+
+.session-actions {
+  display:       flex;
+  gap:           var(--session-actions-gap, 8px);
+  margin-top:    auto;
+  margin-bottom: 8px;
+}
+
+/* Only relevant once .session-actions is actually injected (hosted context) —
+   scoped to the adjacent-sibling case so an app's own base .footnote rule
+   (margin-top: auto) still floats it to the bottom correctly when viewed
+   raw/locally, without .session-actions present. */
+.session-actions + .footnote {
+  margin-top: 0;
+}
+
+.cs-btn.signout-btn {
+  --btn-text:         var(--color-muted);
+  --btn-hover-bg:     var(--color-signal);
+  --btn-hover-text:   #fff;
+  --btn-hover-border: var(--color-signal);
+}
+
+.cs-btn.exit-btn {
+  --btn-text:         var(--color-ink-faint);
+  --btn-hover-border: var(--color-muted);
+}

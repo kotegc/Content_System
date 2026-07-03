@@ -10,3 +10,5 @@
  */
 import './chip-toggle.js';
 import './labeled-slider.js';
+import './app-header.js';
+import './theme-toggle.js';

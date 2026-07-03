@@ -62,4 +62,20 @@
   --shelf-icon-hover-translate: -3px;
   --shelf-icon-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
   --shelf-inset-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.45);
+
+  /* header */
+  --header-gap: 9px;
+  --header-logo-size: 22px;
+  --header-title-font-size: var(--font-size-display-2);
+  --header-title-letter-spacing: .14em;
+  --header-tag-font-size: 10px;
+  --header-tag-letter-spacing: .22em;
+
+  /* theme-toggle */
+  --theme-toggle-radius: 999px;
+  --theme-toggle-padding-x: 13px;
+  --theme-toggle-padding-y: 7px;
+  --theme-toggle-font-size: 11px;
+  --theme-toggle-offset-x: 22px;
+  --theme-toggle-offset-y: 22px;
 }
