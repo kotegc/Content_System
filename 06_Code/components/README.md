@@ -38,6 +38,7 @@ Replace `{cs}` with your path to the content-system submodule — typically `06_
 | [cs-badge](#cs-badge) | CSS class | `<span class="cs-badge">` | Inline tag, version label, or status chip |
 | [cs-card](#cs-card) | CSS class | `<div class="cs-card">` | Content container with brand surface and border |
 | [cs-input-group](#cs-input-group) | CSS class | `<label class="cs-input-group">` | Labeled text input or select field |
+| [cs-shelf](#cs-shelf) | CSS class | `<div class="cs-shelf">` | App-launcher tray of icon+label tiles |
 
 ---
 
@@ -273,6 +274,48 @@ A content container with a brand surface color, border, and rounding.
 | `--card-padding` | components | padding |
 | `--color-panel` | primitive | background |
 | `--color-rule` | primitive | border |
+
+---
+
+## .cs-shelf
+
+A long tray holding app-launcher tiles (icon + label) in a row. Unlike `.cs-card`, its background/border/text/label colors are literal hex, not primitive-token-driven — it's meant to stay a fixed dark surface even on pages using a light theme class (`body.light`).
+
+**Markup**
+
+```html
+<div class="cs-shelf">
+  <a class="cs-shelf__tile" href="/apps/paradigm">
+    <img class="cs-shelf__icon" src="/paradigm-icon.svg" alt="Paradigm">
+    <span class="cs-shelf__label">Paradigm</span>
+  </a>
+
+  <span class="cs-shelf__tile cs-shelf__tile--inactive" aria-disabled="true">
+    <img class="cs-shelf__icon" src="/parasol-icon.svg" alt="">
+    <span class="cs-shelf__label">Parasol</span>
+  </span>
+</div>
+```
+
+Use a real `<a>` for launchable apps. For apps that aren't built yet, use a non-anchor element (e.g. `<span>`) with `cs-shelf__tile--inactive` and `aria-disabled="true"` — this keeps it out of tab order and click-inert without needing a disabled-anchor hack.
+
+**CSS vars consumed**
+
+| Var | Source | Controls |
+|-----|--------|----------|
+| `--shelf-radius` | components | border-radius |
+| `--shelf-padding-x/y` | components | padding |
+| `--shelf-gap` | components | gap between tiles |
+| `--shelf-bg` | components | background (literal, not primitive-driven) |
+| `--shelf-border` | components | border color (literal) |
+| `--shelf-text` | components | label color on hover/focus (literal) |
+| `--shelf-label-color` | components | label color, resting (literal) |
+| `--shelf-tile-size` | components | tile width |
+| `--shelf-icon-size` | components | icon width/height |
+| `--shelf-label-font-size` | components | label font-size |
+| `--shelf-inactive-opacity` | components | opacity of inactive tile's icon + label |
+| `--color-accent` | primitive | focus ring |
+| `--font-ui` | primitive | label font-family |
 
 ---
 

@@ -49,6 +49,21 @@
       "bar-height": "3px",
       "bar-width":  "160px",
       "color":      "var(--color-accent)"
+    },
+    "shelf": {
+      "_doc": "App-launcher tray for the /apps page. Bg/border/text/label-color are literal dark-theme hex values (same constants as --color-panel/--color-rule/--color-text/--color-muted's dark-root values in paralia.json), not var(--color-*) references — those primitives flip under body.light and would wash the shelf out on light-themed pages.",
+      "radius":            "var(--radius-lg)",
+      "padding-x":         "var(--space-lg)",
+      "padding-y":         "var(--space-md)",
+      "gap":               "var(--space-xl)",
+      "bg":                "#111720",
+      "border":            "#232b3b",
+      "text":              "#e5ebf2",
+      "label-color":       "#8394a8",
+      "tile-size":         "56px",
+      "icon-size":         "30px",
+      "label-font-size":   "var(--font-size-sm)",
+      "inactive-opacity":  "0.4"
     }
   }
 }

@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Shelf — app-launcher tray
+   Reads level-2 component tokens (--shelf-*) with fallbacks so it works even
+   without brand tokens loaded. Unlike .cs-card, bg/border/text/label-color
+   are NOT primitive-token-driven — see _doc in tokens/_starter/components.json
+   for why: this component is meant to stay a fixed dark surface regardless
+   of whether the page is using a light theme class.
+
+   Usage pattern:
+     <div class="cs-shelf">
+       <a class="cs-shelf__tile" href="/apps/paradigm">
+         <img class="cs-shelf__icon" src="..." alt="Paradigm">
+         <span class="cs-shelf__label">Paradigm</span>
+       </a>
+       <span class="cs-shelf__tile cs-shelf__tile--inactive" aria-disabled="true">
+         <img class="cs-shelf__icon" src="..." alt="">
+         <span class="cs-shelf__label">Parasol</span>
+       </span>
+     </div>
+   ========================================================================== */
+
+.cs-shelf {
+  display:         inline-flex;
+  align-items:     center;
+  gap:              var(--shelf-gap,       28px);
+  border-radius:    var(--shelf-radius,    12px);
+  padding:          var(--shelf-padding-y, 14px) var(--shelf-padding-x, 20px);
+  background:       var(--shelf-bg,        #111720);
+  border:           1px solid var(--shelf-border, #232b3b);
+}
+
+.cs-shelf__tile {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             6px;
+  width:           var(--shelf-tile-size, 56px);
+  text-decoration: none;
+  cursor:          pointer;
+}
+
+.cs-shelf__icon {
+  width:   var(--shelf-icon-size, 30px);
+  height:  var(--shelf-icon-size, 30px);
+  display: block;
+}
+
+.cs-shelf__label {
+  font-family: var(--font-ui, inherit);
+  font-size:   var(--shelf-label-font-size, 11px);
+  color:       var(--shelf-label-color, #8394a8);
+  transition:  color .12s;
+  text-align:  center;
+}
+
+.cs-shelf__tile:hover .cs-shelf__label,
+.cs-shelf__tile:focus-visible .cs-shelf__label {
+  color: var(--shelf-text, #e5ebf2);
+}
+
+.cs-shelf__tile:focus-visible {
+  outline:        2px solid var(--color-accent, #2457ff);
+  outline-offset: 2px;
+  border-radius:  4px;
+}
+
+/* Inactive / not-yet-launchable tiles — desaturated + dimmed, non-interactive.
+   Mirrors .cs-btn:disabled's opacity+pointer-events precedent, plus an
+   explicit grayscale filter since desaturation was requested beyond dimming. */
+.cs-shelf__tile--inactive {
+  cursor:         default;
+  pointer-events: none;
+}
+.cs-shelf__tile--inactive .cs-shelf__icon {
+  filter:  grayscale(1);
+  opacity: var(--shelf-inactive-opacity, 0.4);
+}
+.cs-shelf__tile--inactive .cs-shelf__label {
+  opacity: var(--shelf-inactive-opacity, 0.4);
+}

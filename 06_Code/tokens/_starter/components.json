@@ -42,6 +42,22 @@
       "_doc": "Content container with brand surface and border. Use with: <div class='cs-card'>...</div>.",
       "radius":      "10px",
       "padding":     "20px"
+    },
+    "shelf": {
+      "_doc": "App-launcher tray: one long tray holding icon+label tiles in a row. Use with: <div class='cs-shelf'><a class='cs-shelf__tile' href='...'><img class='cs-shelf__icon'><span class='cs-shelf__label'>Name</span></a></div>. Add 'cs-shelf__tile--inactive' (and drop the href, or use a non-anchor element) for tiles that aren't launchable yet.",
+      "_bg_hint": "Deliberately literal hex, not var(--color-panel)/var(--color-text)/etc — this component is meant to render as a fixed dark surface even on brands/pages using a light theme class. Unlike 'card', which follows the active theme, 'shelf' should not wash out under body.light.",
+      "radius":            "10px",
+      "padding-x":         "20px",
+      "padding-y":         "14px",
+      "gap":               "28px",
+      "bg":                "#1a1a1a",
+      "border":            "#2e2e2e",
+      "text":              "#f5f5f5",
+      "label-color":       "#999999",
+      "tile-size":         "56px",
+      "icon-size":         "30px",
+      "label-font-size":   "11px",
+      "inactive-opacity":  "0.4"
     }
   }
 }

@@ -42,4 +42,18 @@
   --loader-bar-height: 3px;
   --loader-bar-width: 160px;
   --loader-color: var(--color-accent);
+
+  /* shelf */
+  --shelf-radius: var(--radius-lg);
+  --shelf-padding-x: var(--space-lg);
+  --shelf-padding-y: var(--space-md);
+  --shelf-gap: var(--space-xl);
+  --shelf-bg: #111720;
+  --shelf-border: #232b3b;
+  --shelf-text: #e5ebf2;
+  --shelf-label-color: #8394a8;
+  --shelf-tile-size: 56px;
+  --shelf-icon-size: 30px;
+  --shelf-label-font-size: var(--font-size-sm);
+  --shelf-inactive-opacity: 0.4;
 }
