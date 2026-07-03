@@ -189,6 +189,7 @@ A styled button. Apply to any `<button>` or `<a>` element.
 | `cs-btn--primary` | Solid accent background, white text |
 | `cs-btn--secondary` | Transparent background, rule border, text-colored; hover darkens border |
 | `cs-btn--ghost` | No background or border, accent-colored text; hover adds panel background |
+| `cs-btn--outline-white` | Literal white border + text (not theme-reactive) — for buttons on a fixed-dark surface like `.cs-shelf`, where the button shouldn't shift with the page's light/dark theme |
 
 **Color hook API** — override any hook in app-level CSS
 
@@ -286,20 +287,26 @@ A long tray holding app-launcher tiles (icon + label) in a row. Unlike `.cs-card
 ```html
 <div class="cs-shelf">
   <a class="cs-shelf__tile" href="/apps/paradigm">
-    <img class="cs-shelf__icon" src="/paradigm-icon.svg" alt="Paradigm">
+    <span class="cs-shelf__icon-frame">
+      <img class="cs-shelf__icon" src="/paradigm-icon.svg" alt="Paradigm">
+    </span>
     <span class="cs-shelf__label">Paradigm</span>
   </a>
 
   <span class="cs-shelf__tile cs-shelf__tile--inactive" aria-disabled="true">
-    <img class="cs-shelf__icon" src="/parasol-icon.svg" alt="">
+    <span class="cs-shelf__icon-frame">
+      <img class="cs-shelf__icon" src="/parasol-icon.svg" alt="">
+    </span>
     <span class="cs-shelf__label">Parasol</span>
   </span>
 
-  <a class="cs-btn cs-btn--ghost cs-shelf__action" href="/tour">Take a tour</a>
+  <a class="cs-btn cs-btn--outline-white cs-shelf__action" href="/tour">Take a tour</a>
 </div>
 ```
 
 Use a real `<a>` for launchable apps. For apps that aren't built yet, use a non-anchor element (e.g. `<span>`) with `cs-shelf__tile--inactive` and `aria-disabled="true"` — this keeps it out of tab order and click-inert without needing a disabled-anchor hack. Inactive tiles still respond to hover (a smaller icon-scale than active tiles) so they read as "not yet available" rather than fully inert.
+
+`.cs-shelf__icon-frame` reserves a fixed square slot for each icon regardless of its native aspect ratio — `.cs-shelf__icon` fills the frame's width with auto height, so a set of icons with mismatched proportions (e.g. one square, one taller, one wider) still line up consistently, favoring width as the shared dimension and centering vertically.
 
 The shelf fills its container up to `--shelf-max-width` and shrinks fluidly below that, so it stays wide on large screens and responsive on small ones. Tiles pack to the left; an optional trailing element with `cs-shelf__action` (e.g. a button) pins itself to the right edge via `margin-left: auto`, leaving a "room to grow" gap between it and the last tile.
 

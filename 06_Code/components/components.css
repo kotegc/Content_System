@@ -85,6 +85,17 @@
   --btn-hover-bg: var(--color-panel,  #f5f5f5);
 }
 
+/* Literal white, not a --color-* primitive reference — for buttons placed on
+   a fixed-dark surface (e.g. .cs-shelf) that shouldn't shift with the page's
+   light/dark theme, same reasoning as .cs-shelf's own literal colors. */
+.cs-btn--outline-white {
+  --btn-bg:         transparent;
+  --btn-text:       #fff;
+  --btn-border:     #fff;
+  --btn-hover-bg:   rgba(255, 255, 255, 0.12);
+  --btn-hover-text: #fff;
+}
+
 .cs-btn:focus-visible {
   outline:        2px solid var(--color-accent, #2457ff);
   outline-offset: 2px;

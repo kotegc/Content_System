@@ -9,15 +9,25 @@
    Usage pattern:
      <div class="cs-shelf">
        <a class="cs-shelf__tile" href="/apps/paradigm">
-         <img class="cs-shelf__icon" src="..." alt="Paradigm">
+         <span class="cs-shelf__icon-frame">
+           <img class="cs-shelf__icon" src="..." alt="Paradigm">
+         </span>
          <span class="cs-shelf__label">Paradigm</span>
        </a>
        <span class="cs-shelf__tile cs-shelf__tile--inactive" aria-disabled="true">
-         <img class="cs-shelf__icon" src="..." alt="">
+         <span class="cs-shelf__icon-frame">
+           <img class="cs-shelf__icon" src="..." alt="">
+         </span>
          <span class="cs-shelf__label">Parasol</span>
        </span>
-       <a class="cs-btn cs-btn--ghost cs-shelf__action" href="/tour">Take a tour</a>
+       <a class="cs-btn cs-btn--outline-white cs-shelf__action" href="/tour">Take a tour</a>
      </div>
+
+   Icons aren't assumed to be square: .cs-shelf__icon-frame reserves a fixed
+   square slot (so every tile lines up the same regardless of each icon's
+   native aspect ratio), and .cs-shelf__icon fills that frame's width with
+   auto height, centered vertically — width is the consistent dimension
+   across an icon set, not height.
    ========================================================================== */
 
 .cs-shelf {
@@ -51,9 +61,17 @@
   cursor:          pointer;
 }
 
+.cs-shelf__icon-frame {
+  width:           var(--shelf-icon-size, 30px);
+  height:          var(--shelf-icon-size, 30px);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
 .cs-shelf__icon {
-  width:      var(--shelf-icon-size, 30px);
-  height:     var(--shelf-icon-size, 30px);
+  width:      100%;
+  height:     auto;
   display:    block;
   transition: transform .15s ease;
 }
