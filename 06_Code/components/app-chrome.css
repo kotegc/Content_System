@@ -1,26 +1,76 @@
 /* ==========================================================================
-   App chrome — shared left-rail header, theme toggle, and session-action
-   row used by every Paralia viewer app (paradigm, parable, ...).
-   Reads level-2 --header-* and --theme-toggle-* tokens with fallbacks so
-   it works even without brand tokens loaded.
+   App chrome — shared page shell (grid + left rail), header, theme toggle,
+   and session-action row used by every Paralia viewer app (paradigm,
+   parable, ...). Reads level-2 --header-*/--theme-toggle-* tokens with
+   fallbacks so it works even without brand tokens loaded.
 
    Usage pattern:
-     <aside>
-       <app-header app-title="para.digm" app-subtitle="workbench"
-         logo-src="public/Paradigm_Icon.svg"></app-header>
-       ...
-       <div class="footnote">...</div>
-     </aside>
-     <main style="position:relative">
-       ...
-       <theme-toggle></theme-toggle>
-     </main>
+     <body>
+       <aside>
+         <app-header app-title="para.digm" app-subtitle="workbench"
+           logo-src="public/Paradigm_Icon.svg"></app-header>
+         ...
+         <div class="footnote">...</div>
+       </aside>
+       <main style="position:relative">
+         ...
+         <theme-toggle></theme-toggle>
+       </main>
+     </body>
 
    The .session-actions row (Sign out + Exit) is injected server-side by
    Website/src/lib/wireViewerRoute.ts, immediately before <div class="footnote">
    — its classes are documented here alongside the rest of the chrome even
    though the markup itself never appears in an app's source HTML.
    ========================================================================== */
+
+/* ── Page shell (grid + left rail) ──────────────────────────────────────── */
+/* Was hand-copied per-app; centralized here so new viewer apps get the same
+   shell for free. App-specific styles (widgets, stage, legend, etc.) still
+   live in each app's own <style> block — only the outer shell is shared. */
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin:     0;
+  height:     100%;
+  background: var(--color-bg);
+  color:      var(--color-text);
+}
+
+body {
+  font-family:          var(--font-mono);
+  display:               grid;
+  grid-template-columns: 312px 1fr;
+  grid-template-rows:    1fr;
+  height:                100vh;
+  overflow:              hidden;
+}
+
+aside {
+  background:       var(--color-panel);
+  border-right:     1px solid var(--color-rule);
+  padding:          22px 20px;
+  display:          flex;
+  flex-direction:   column;
+  gap:              22px;
+  overflow-y:       auto;
+  scrollbar-width:  thin;
+  scrollbar-color:  var(--color-rule) var(--color-panel);
+}
+aside::-webkit-scrollbar { width: 6px; }
+aside::-webkit-scrollbar-track { background: var(--color-panel); }
+aside::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: 3px; }
+aside::-webkit-scrollbar-thumb:hover { background: var(--color-ink-faint); }
+
+body.light aside { border-top: 3px solid var(--color-accent); }
+
+.footnote {
+  margin-top: auto;
+  font-size:  10px;
+  color:      var(--color-ink-faint);
+  line-height: 1.5;
+}
 
 /* ── Header / brand block ───────────────────────────────────────────────── */
 
