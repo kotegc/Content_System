@@ -99,6 +99,12 @@ const chip = document.querySelector('chip-toggle[data-key="wire"]');
 chip.on;   // → boolean
 ```
 
+**Method** — set state programmatically, e.g. restoring saved state when switching between several independent instances of the same UI (`data-on` is only read once, at connect time, so setting it as an attribute later has no effect — use this instead). Does not dispatch a `chip-toggle` event.
+
+```js
+chip.setOn(true);
+```
+
 **CSS vars consumed**
 
 | Var | Source | Controls |
