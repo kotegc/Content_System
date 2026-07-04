@@ -24,6 +24,12 @@
  * Property:
  *   .value  →  current numeric value
  *
+ * Method:
+ *   .configure({ min, max, step, value })  →  reprogram the range after mount
+ *   (e.g. once real data bounds are known). Any key can be omitted. Does not
+ *   dispatch labeled-slider-input/-change — call sites that need downstream
+ *   state to pick up the new value should do so themselves.
+ *
  * Theming: reads --slider-track-height, --slider-thumb-size, --color-grid,
  * --color-signal, --font-mono, --color-text. All have fallbacks.
  */
@@ -38,13 +44,12 @@ class LabeledSlider extends HTMLElement {
     const max      = this.getAttribute('max')      ?? '100';
     const step     = this.getAttribute('step')     ?? '1';
     const value    = this.getAttribute('value')    ?? '50';
-    const decimals = parseInt(this.getAttribute('decimals') ?? '0', 10);
-    const fmt      = v => decimals > 0 ? (+v).toFixed(decimals) : v;
+    this._decimals = parseInt(this.getAttribute('decimals') ?? '0', 10);
 
     this.innerHTML = `
       <div class="ls-row">
         <span class="ls-label">${label}</span>
-        <span class="ls-value">${fmt(value)}</span>
+        <span class="ls-value">${this._format(value)}</span>
       </div>
       <input type="range" min="${min}" max="${max}" step="${step}" value="${value}">
     `;
@@ -53,7 +58,7 @@ class LabeledSlider extends HTMLElement {
     this._display = this.querySelector('.ls-value');
 
     this._input.addEventListener('input', () => {
-      this._display.textContent = fmt(this._input.value);
+      this._display.textContent = this._format(this._input.value);
       this.dispatchEvent(new CustomEvent('labeled-slider-input', {
         detail: { name, value: +this._input.value },
         bubbles: true,
@@ -68,7 +73,20 @@ class LabeledSlider extends HTMLElement {
     });
   }
 
+  _format(v) { return this._decimals > 0 ? (+v).toFixed(this._decimals) : v; }
+
   get value() { return +this._input.value; }
+
+  configure({ min, max, step, value } = {}) {
+    if (!this._input) return;
+    if (min   !== undefined) this._input.min   = min;
+    if (max   !== undefined) this._input.max   = max;
+    if (step  !== undefined) this._input.step  = step;
+    if (value !== undefined) {
+      this._input.value = value;
+      this._display.textContent = this._format(value);
+    }
+  }
 }
 
 customElements.define('labeled-slider', LabeledSlider);

@@ -158,6 +158,14 @@ const slider = document.querySelector('labeled-slider[name="U"]');
 slider.value;   // → number (current value)
 ```
 
+**Method** — reprogram the range after mount, e.g. once real data bounds are known (attributes are only read once, at connect time, so setting `min`/`max`/`value` as attributes later has no effect — use this instead):
+
+```js
+slider.configure({ min: dataMin, max: dataMax, value: dataMin });
+// any key can be omitted; doesn't dispatch labeled-slider-input/-change —
+// call sites needing downstream state to pick up the new value do so themselves
+```
+
 **Debounce pattern** (for expensive operations on drag):
 
 ```js
