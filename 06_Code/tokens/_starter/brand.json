@@ -18,6 +18,8 @@
     "_section_data": "── Data and status colors ──────────────────────────────────",
     "color-signal":    "#f56500",
     "color-ok":        "#22c55e",
+    "color-warn":      "#eab308",
+    "color-fail":      "#ef4444",
 
     "_section_type": "── Typeface stacks ─────────────────────────────────────────",
     "font-sans":       "-apple-system, BlinkMacSystemFont, 'Inter', sans-serif",

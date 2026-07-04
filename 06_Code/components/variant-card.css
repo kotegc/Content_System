@@ -1,0 +1,110 @@
+/* ==========================================================================
+   Content System — Variant Card
+   A single card in a variant/case gallery grid: fixed-ratio thumbnail on
+   top, a meta strip (id + status badges) below, a status-colored accent
+   bar on the left edge, and a hover overlay that replaces the thumbnail
+   with extra detail.
+
+   Styling only. This component does not source thumbnail content, populate
+   hover-detail values, decide the `data-status` value, or handle clicks —
+   all of that is the consuming app's job via the contract below.
+
+   Contract:
+     <div class="cs-variant-grid">
+       <div class="cs-variant-card" data-status="pass|near|fail|stub">
+         <div class="cs-variant-card__thumb">
+           <canvas></canvas> <!-- or <img>, app-supplied -->
+           <div class="cs-variant-card__hover-detail">...</div>
+         </div>
+         <div class="cs-variant-card__meta">
+           <span class="cs-variant-card__id">case_000042</span>
+           <span class="cs-badge cs-badge--fail">FAIL</span>
+         </div>
+       </div>
+     </div>
+   ========================================================================== */
+
+.cs-variant-grid {
+  display:               grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--variant-card-min-width, 180px), 1fr));
+  gap:                   var(--variant-card-grid-gap, 16px);
+}
+
+.cs-variant-card {
+  display:        flex;
+  flex-direction: column;
+  overflow:       hidden;
+  border-radius:  var(--variant-card-radius, 8px);
+  background:     var(--color-panel, #f5f5f5);
+  border:         1px solid var(--color-rule, #ddd);
+  border-left:    var(--variant-card-status-bar-width, 3px) solid var(--color-rule, #ddd);
+  cursor:         pointer;
+  transition:     border-color .12s, transform .12s;
+}
+
+.cs-variant-card:hover,
+.cs-variant-card:focus-within {
+  transform: translateY(-1px);
+}
+
+.cs-variant-card[data-status="pass"] { border-left-color: var(--color-ok,   #22c55e); }
+.cs-variant-card[data-status="near"] { border-left-color: var(--color-warn, #eab308); }
+.cs-variant-card[data-status="fail"] { border-left-color: var(--color-fail, #ef4444); }
+.cs-variant-card[data-status="stub"] { border-left-color: var(--color-muted, #666); }
+
+.cs-variant-card__thumb {
+  position:     relative;
+  aspect-ratio: var(--variant-card-thumb-aspect-ratio, 1);
+  background:   var(--color-panel-2, var(--color-panel, #eee));
+  overflow:     hidden;
+}
+
+.cs-variant-card__thumb canvas,
+.cs-variant-card__thumb img {
+  display:  block;
+  width:    100%;
+  height:   100%;
+  object-fit: contain;
+}
+
+.cs-variant-card__hover-detail {
+  position:        absolute;
+  inset:           0;
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  gap:             4px;
+  padding:         var(--variant-card-meta-padding-y, 8px) var(--variant-card-meta-padding-x, 10px);
+  background:      var(--variant-card-hover-overlay-bg, rgba(0, 0, 0, 0.72));
+  color:           #fff;
+  font-size:       12px;
+  line-height:     1.5;
+  opacity:         0;
+  pointer-events:  none;
+  transition:      opacity var(--variant-card-hover-transition-ms, 120ms) ease;
+}
+
+.cs-variant-card:hover .cs-variant-card__hover-detail,
+.cs-variant-card:focus-within .cs-variant-card__hover-detail {
+  opacity:        1;
+  pointer-events: auto;
+}
+
+.cs-variant-card__meta {
+  display:        flex;
+  align-items:    center;
+  gap:            6px;
+  padding:        var(--variant-card-meta-padding-y, 8px) var(--variant-card-meta-padding-x, 10px);
+  border-top:     1px solid var(--color-rule, #ddd);
+  flex-wrap:      wrap;
+}
+
+.cs-variant-card__id {
+  font-family: var(--font-mono, monospace);
+  font-size:   12px;
+  color:       var(--color-text, #111);
+  margin-right: auto;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -82,6 +82,18 @@
       "font-size": "11px",
       "offset-x":  "22px",
       "offset-y":  "22px"
+    },
+    "variant-card": {
+      "_doc": "A single card in a variant/case gallery grid: fixed-ratio thumbnail on top, meta strip (id + status badges) below, a status-colored accent bar on the left edge, and a hover overlay that replaces the thumbnail with extra detail. Use with: <div class='cs-variant-grid'><div class='cs-variant-card' data-status='pass|near|fail|stub'>...</div></div>. Styling only — sourcing thumbnail content, hover-detail values, data-status, and click handling are the consumer's job.",
+      "radius":              "8px",
+      "thumb-aspect-ratio":  "1",
+      "meta-padding-x":      "10px",
+      "meta-padding-y":      "8px",
+      "min-width":           "180px",
+      "grid-gap":            "16px",
+      "status-bar-width":    "3px",
+      "hover-overlay-bg":    "rgba(0, 0, 0, 0.72)",
+      "hover-transition-ms": "120ms"
     }
   }
 }

@@ -88,6 +88,18 @@
       "font-size": "11px",
       "offset-x":  "22px",
       "offset-y":  "22px"
+    },
+    "variant-card": {
+      "_doc": "Case/variant gallery card. Sharp-ish corners matching the badge/table density philosophy, not pill-shaped like buttons/chips/inputs.",
+      "radius":              "var(--radius-md)",
+      "thumb-aspect-ratio":  "1",
+      "meta-padding-x":      "var(--space-sm)",
+      "meta-padding-y":      "8px",
+      "min-width":           "180px",
+      "grid-gap":            "var(--space-md)",
+      "status-bar-width":    "3px",
+      "hover-overlay-bg":    "rgba(11, 14, 21, 0.82)",
+      "hover-transition-ms": "120ms"
     }
   }
 }

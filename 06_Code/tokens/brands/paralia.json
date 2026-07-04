@@ -22,6 +22,8 @@
     "color-ink-faint": "#4f5f78",
     "color-signal":    "#ff7a45",
     "color-ok":        "#4fd6a0",
+    "color-warn":      "#ffcc4d",
+    "color-fail":      "#ff5c5c",
     "color-grid":      "#161e2d",
     "radius-sm":       "4px",
     "radius-md":       "8px",
@@ -42,6 +44,8 @@
     "color-muted":     "#4a5568",
     "color-ink-faint": "#718096",
     "color-ok":        "#1a9e6b",
+    "color-warn":      "#b8860b",
+    "color-fail":      "#c62828",
     "color-grid":      "#dce4ef"
   }
 }

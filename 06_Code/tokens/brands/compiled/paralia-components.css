@@ -78,4 +78,15 @@
   --theme-toggle-font-size: 11px;
   --theme-toggle-offset-x: 22px;
   --theme-toggle-offset-y: 22px;
+
+  /* variant-card */
+  --variant-card-radius: var(--radius-md);
+  --variant-card-thumb-aspect-ratio: 1;
+  --variant-card-meta-padding-x: var(--space-sm);
+  --variant-card-meta-padding-y: 8px;
+  --variant-card-min-width: 180px;
+  --variant-card-grid-gap: var(--space-md);
+  --variant-card-status-bar-width: 3px;
+  --variant-card-hover-overlay-bg: rgba(11, 14, 21, 0.82);
+  --variant-card-hover-transition-ms: 120ms;
 }

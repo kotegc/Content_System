@@ -58,6 +58,7 @@ Replace `{cs}` with your path to the content-system submodule — typically `06_
 | [cs-card](#cs-card) | CSS class | `<div class="cs-card">` | Content container with brand surface and border |
 | [cs-input-group](#cs-input-group) | CSS class | `<label class="cs-input-group">` | Labeled text input or select field |
 | [cs-shelf](#cs-shelf) | CSS class | `<div class="cs-shelf">` | App-launcher tray of icon+label tiles |
+| [cs-variant-card](#cs-variant-card) | CSS class (`variant-card.css`) | `<div class="cs-variant-card">` | Thumbnail + hover-detail card for a variant/case gallery grid |
 
 ---
 
@@ -358,6 +359,22 @@ An inline tag, label, or status chip.
 <span class="cs-badge">In review</span>
 ```
 
+**Status variants** — for a pass/near-threshold/fail/neutral judgment (e.g. a test result, a health check), add one of these modifier classes alongside the base class. Two-class selector beats the base rule on specificity, same pattern as `.cs-btn`'s canonical variants — app-level CSS can still override further with its own two-class selector if a one-off color is ever needed.
+
+```html
+<span class="cs-badge cs-badge--ok">PASS</span>
+<span class="cs-badge cs-badge--warn">NEAR</span>
+<span class="cs-badge cs-badge--fail">FAIL</span>
+<span class="cs-badge cs-badge--neutral">sdf</span>
+```
+
+| Class | Color treatment |
+|-------|------------------|
+| `cs-badge--ok` | `--color-ok` (green) text + border |
+| `cs-badge--warn` | `--color-warn` (amber) text + border |
+| `cs-badge--fail` | `--color-fail` (red) text + border |
+| `cs-badge--neutral` | `--color-muted` text, `--color-rule` border — same as the unmodified base badge; use for labels that aren't a judgment (e.g. a failure-stage name) |
+
 **CSS vars consumed**
 
 | Var | Source | Controls |
@@ -366,8 +383,11 @@ An inline tag, label, or status chip.
 | `--badge-font-size` | components | font-size |
 | `--badge-padding-x/y` | components | padding |
 | `--color-panel` | primitive | background |
-| `--color-muted` | primitive | text color |
-| `--color-rule` | primitive | border |
+| `--color-muted` | primitive | text color (base + `--neutral`) |
+| `--color-rule` | primitive | border (base + `--neutral`) |
+| `--color-ok` | primitive | `--ok` variant text + border |
+| `--color-warn` | primitive | `--warn` variant text + border |
+| `--color-fail` | primitive | `--fail` variant text + border |
 
 ---
 
@@ -485,6 +505,63 @@ A label + input/select pair. Use `<label>` as the outer element so clicking the 
 | `--color-rule` | primitive | border |
 | `--color-accent` | primitive | focus ring |
 | `--color-muted` | primitive | label + placeholder |
+
+---
+
+## cs-variant-card
+
+A card for a variant/case gallery grid: a fixed-ratio thumbnail on top, a meta strip (id + status badges) below, a status-colored accent bar on the left edge, and a hover overlay that swaps in extra detail over the thumbnail. Ships in its own stylesheet, `components/variant-card.css` — not folded into `components.css` — so consumers that don't need a gallery grid don't pay for it. Load it the same way as `chip-toggle.css`/`labeled-slider.css` (an individual `<link>`, not the `index.js`-only shorthand).
+
+**This component only provides static visual styling and the hover-reveal (pure CSS `:hover`/`:focus-within` — no JS).** Sourcing thumbnail content, populating hover-detail values, deciding the `data-status` value, and handling clicks are the consuming app's job.
+
+**Markup**
+
+```html
+<div class="cs-variant-grid">
+  <div class="cs-variant-card" data-status="fail">
+    <div class="cs-variant-card__thumb">
+      <canvas></canvas> <!-- or <img>, app-supplied thumbnail -->
+      <div class="cs-variant-card__hover-detail">
+        <span>case_000042</span>
+        <span>origin error: 18.4mm</span>
+        <span>axis error: 9.1°</span>
+      </div>
+    </div>
+    <div class="cs-variant-card__meta">
+      <span class="cs-variant-card__id">case_000042</span>
+      <span class="cs-badge cs-badge--fail">FAIL</span>
+      <span class="cs-badge cs-badge--neutral">sdf</span>
+    </div>
+  </div>
+</div>
+```
+
+**`data-status` contract**
+
+| Value | Accent bar color |
+|-------|-------------------|
+| `pass` | `--color-ok` |
+| `near` | `--color-warn` |
+| `fail` | `--color-fail` |
+| `stub` | `--color-muted` |
+
+**CSS vars consumed**
+
+| Var | Source | Controls |
+|-----|--------|----------|
+| `--variant-card-radius` | components | card border-radius |
+| `--variant-card-thumb-aspect-ratio` | components | thumbnail box aspect ratio |
+| `--variant-card-meta-padding-x/y` | components | meta strip + hover-detail padding |
+| `--variant-card-min-width` | components | grid column minimum width |
+| `--variant-card-grid-gap` | components | gap between cards |
+| `--variant-card-status-bar-width` | components | left accent-bar thickness |
+| `--variant-card-hover-overlay-bg` | components | hover-detail overlay background |
+| `--variant-card-hover-transition-ms` | components | hover-reveal transition duration |
+| `--color-panel` / `--color-panel-2` | primitive | card / thumbnail background |
+| `--color-rule` | primitive | card border |
+| `--color-ok` / `--color-warn` / `--color-fail` / `--color-muted` | primitive | accent-bar color per `data-status` |
+| `--color-text` | primitive | id text color |
+| `--font-mono` | primitive | id text font |
 
 ---
 

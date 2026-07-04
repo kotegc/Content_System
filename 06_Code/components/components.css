@@ -118,6 +118,27 @@
   letter-spacing: .02em;
 }
 
+/* Status variants — judgment-color overrides for pass/near-threshold/fail/
+   neutral readings (e.g. a case result, a health check). Two-class selector
+   (.cs-badge.cs-badge--ok) beats the base rule on specificity, same pattern
+   as .cs-btn's canonical variants. */
+.cs-badge.cs-badge--ok {
+  color:        var(--color-ok,   #22c55e);
+  border-color: var(--color-ok,   #22c55e);
+}
+.cs-badge.cs-badge--warn {
+  color:        var(--color-warn, #eab308);
+  border-color: var(--color-warn, #eab308);
+}
+.cs-badge.cs-badge--fail {
+  color:        var(--color-fail, #ef4444);
+  border-color: var(--color-fail, #ef4444);
+}
+.cs-badge.cs-badge--neutral {
+  color:        var(--color-muted, #666);
+  border-color: var(--color-rule,  #ddd);
+}
+
 
 /* ── Card ────────────────────────────────────────────────────────────────── */
 
