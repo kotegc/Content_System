@@ -1,0 +1,5 @@
+# Force LF line endings for git hooks regardless of a checkout's core.autocrlf
+# setting — a shell script with CRLF line endings breaks its own shebang line
+# ("/bin/sh^M: bad interpreter") on Linux/Mac, which would silently disable
+# this repo's pre-commit hook for anyone not on Windows.
+.githooks/* text eol=lf

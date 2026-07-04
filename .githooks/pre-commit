@@ -1,0 +1,16 @@
+#!/bin/sh
+# Refuses commits made from inside a submodule checkout of this repo.
+# SYS-2026_CONTENT_SYSTEM is the canonical repo — every edit belongs there,
+# never inside a consumer repo's submodule checkout of it (the automated
+# update-consumers.yml PR is the only thing that should ever touch a
+# submodule checkout, via an explicit `git add` of the pointer itself,
+# which this hook does not run for).
+if [ -n "$(git rev-parse --show-superproject-working-tree 2>/dev/null)" ]; then
+  echo ""
+  echo "Refusing to commit: this is a submodule checkout of Content_System."
+  echo "Make this edit in the canonical SYS-2026_CONTENT_SYSTEM repo instead,"
+  echo "then push there — an automated PR will update this submodule pointer."
+  echo ""
+  exit 1
+fi
+exit 0

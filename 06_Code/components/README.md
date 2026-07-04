@@ -14,6 +14,8 @@ A growing set of core UI components that implement any brand defined in `tokens/
 - **Push**: commit and push to `origin/main` in this repo. That's the last manual step.
 - **What happens next**: [`update-consumers.yml`](../../.github/workflows/update-consumers.yml) watches pushes to `main` touching `06_Code/tokens/brands/compiled/**`, `06_Code/assets/**`, or `06_Code/components/**`, and opens a PR in each consumer repo (currently `My_Portfolio`, `Publisher`, `Paralia`) bumping that repo's submodule pointer. **Nothing auto-merges** — review the PR (it's just a submodule-pointer bump; the real diff is whatever you pushed here) and merge it yourself.
 
+**This is enforced, not just documented.** [`.githooks/pre-commit`](../../.githooks/pre-commit) is a tracked file — it travels with the submodule into every consumer repo automatically and refuses any commit attempted from inside a submodule checkout of this repo (it checks `git rev-parse --show-superproject-working-tree`, which is only non-empty when you're inside someone else's submodule). For the hook to actually run, something in the consumer repo needs to have pointed git at it once via `git -C <submodule-path> config core.hooksPath .githooks` — in `PAR-2026_PARALIA` this is wired into `Website/package.json`'s `prepare` script, so it happens automatically on `npm install`. Apply the same one-line `prepare`-script (or equivalent) addition in any other consumer repo. `PAR-2026_PARALIA/.gitmodules` also sets `ignore = all` on the submodule entry, so accidental submodule-internal state doesn't show up as "dirty" in casual `git status` at the outer-repo level — worth the same one-line addition in other consumers' `.gitmodules` too.
+
 ---
 
 ## Quick start
