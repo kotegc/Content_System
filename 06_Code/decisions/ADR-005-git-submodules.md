@@ -51,6 +51,7 @@ Consumers reference system files via relative paths:
 **Negative (known tradeoffs):**
 - **Submodule initialization is not automatic.** After cloning a consumer repo, `git submodule update --init` must be run or `06_Code/system/` is an empty directory. Build scripts should guard against this (see `RELIABILITY.md` Gap 3 and the guard added to `scripts/build.ps1` and `scripts/build.sh`).
 - **Version updates are manual.** When the system repo is updated, each consumer repo must explicitly update its submodule pin (`git submodule update --remote`) and commit the pointer change. This does not happen automatically.
+  - *Update (post-acceptance):* `.github/workflows/update-consumers.yml` now automates the PR-opening half of this — a push to `main` touching `06_Code/tokens/brands/compiled/**`, `06_Code/assets/**`, or `06_Code/components/**` triggers the workflow to update each consumer's submodule pin itself and open a PR against that consumer repo. A human still has to review and merge it; nothing auto-merges. See the [Workflow section](../components/README.md#workflow) in `components/README.md`.
 - **Submodule URL changes require coordination.** When the system repo's remote URL changes (as it did when moving from a local `file://` path to the GitHub URL), `.gitmodules` must be updated in every consumer and `git submodule sync` must be run. For two consumers this is manageable; for many, it becomes error-prone.
 - Submodules are a source of confusion for developers who are not familiar with them. The empty directory after clone is a common stumbling point.
 

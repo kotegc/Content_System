@@ -83,10 +83,6 @@ Commit both the source JSON **and** the compiled outputs. Consumer repos pull th
 
 ## 6 — Use it in a consumer repo
 
-Update the consumer's submodule reference:
-
-```bash
-git submodule update --remote
-```
+Don't run `git submodule update --remote` in the consumer repo yourself — once step 5's commit is pushed here, [`update-consumers.yml`](../../../.github/workflows/update-consumers.yml) automatically opens a PR in each consumer repo that bumps its submodule pointer. Review and merge that PR when it arrives (see the [Workflow section](../../components/README.md#workflow) in `components/README.md` for the full picture).
 
 Then follow the import pattern in [`06_Code/components/README.md`](../../components/README.md).

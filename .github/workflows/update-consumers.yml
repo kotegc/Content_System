@@ -1,4 +1,4 @@
-name: Propagate brand tokens to consumer repos
+name: Propagate content-system updates to consumer repos
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
     paths:
       - '06_Code/tokens/brands/compiled/**'
       - '06_Code/assets/**'
+      - '06_Code/components/**'
   workflow_dispatch:
 
 jobs:
@@ -48,11 +49,11 @@ jobs:
           git diff --staged --quiet && echo "No changes, skipping PR" && exit 0
           BRANCH="chore/update-content-system-$(date +%Y%m%d-%H%M%S)"
           git checkout -b "$BRANCH"
-          git commit -m "chore: update Content System submodule (brand assets)"
+          git commit -m "chore: update Content System submodule"
           git push origin "$BRANCH"
           gh pr create \
             --title "chore: update Content System submodule" \
-            --body "Brand assets updated in Content System. Review changes in \`06_Code/tokens/brands/compiled/\` and \`06_Code/assets/\` before merging." \
+            --body "Content System updated. Review changes in \`06_Code/tokens/brands/compiled/\`, \`06_Code/assets/\`, and \`06_Code/components/\` before merging." \
             --base main \
             --head "$BRANCH"
         env:

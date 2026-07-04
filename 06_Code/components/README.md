@@ -1,6 +1,18 @@
 # Content System — Component Library
 
-Six core UI components that implement any brand defined in `tokens/brands/`. Each component reads **level-2 component tokens** (`--btn-radius`, `--chip-font-size`, etc.) for its brand-specific shape and scale, and **level-1 primitive tokens** (`--color-accent`, `--color-rule`, etc.) for its colors. All CSS vars have fallbacks, so components work without any brand tokens loaded.
+A growing set of core UI components that implement any brand defined in `tokens/brands/`. Each component reads **level-2 component tokens** (`--btn-radius`, `--chip-font-size`, etc.) for its brand-specific shape and scale, and **level-1 primitive tokens** (`--color-accent`, `--color-rule`, etc.) for its colors. All CSS vars have fallbacks, so components work without any brand tokens loaded.
+
+---
+
+## Workflow
+
+**This is the canonical repo.** If you're reading this file from inside a consumer repo's submodule checkout (e.g. `PAR-2026_PARALIA/06_Code/content-system`), stop — `cd` to (or clone) the standalone `SYS-2026_CONTENT_SYSTEM` checkout and make your edit there instead. **Never commit or push from inside a submodule checkout** — changes made there don't go anywhere and will be silently lost the next time the submodule pointer moves.
+
+- **To add or edit brand values**: edit `tokens/brands/{brand}.json` or `tokens/brands/{brand}-components.json` directly for an existing brand, or see [`tokens/_starter/README.md`](../tokens/_starter/README.md) to bootstrap a new one.
+- **To add a new component**: see [Adding a new component](#adding-a-new-component) below.
+- **Compile**: after any `tokens/brands/*.json` edit, run `node 06_Code/tokens/compile.js` from the repo root. Commit both the JSON source and the regenerated `compiled/` output.
+- **Push**: commit and push to `origin/main` in this repo. That's the last manual step.
+- **What happens next**: [`update-consumers.yml`](../../.github/workflows/update-consumers.yml) watches pushes to `main` touching `06_Code/tokens/brands/compiled/**`, `06_Code/assets/**`, or `06_Code/components/**`, and opens a PR in each consumer repo (currently `My_Portfolio`, `Publisher`, `Paralia`) bumping that repo's submodule pointer. **Nothing auto-merges** — review the PR (it's just a submodule-pointer bump; the real diff is whatever you pushed here) and merge it yourself.
 
 ---
 

@@ -1,72 +1,22 @@
-# PROJECT TEMPLATE
+# Content System
 
-## Folder Structure
+Paralia's shared design-token and UI-component system: brand-level design tokens (colors, type, spacing) and a small library of framework-agnostic web components/CSS classes built on top of them. Consumed by other repos (`PAR-2026_PARALIA`, `My_Portfolio`, `Publisher`, and future ones) as a git submodule at `06_Code/content-system` (or `06_Code/system`, depending on the consumer).
 
-    01_Docs/          — contracts, briefs, specifications, deliverable docs
-    02_CAD_Working/   — working CAD files, not for release
-    03_CAD_Release/   — approved/released CAD, versioned by filename
-    04_ID/            — visual assets, renders, branding, presentations
-    05_Notes/         — markdown notes, research, references
-    06_Code/          — all scripts, tools, and code assets
+**This repo is the canonical source.** If you're looking at this file from inside a consumer repo's submodule checkout, you're reading a read-only copy — go to the standalone `SYS-2026_CONTENT_SYSTEM` checkout to make any edit. See [`06_Code/components/README.md`](06_Code/components/README.md#workflow) for the full workflow: how to add a component or brand, how to compile, where to push from, and what happens after (an automated PR bumps each consumer's submodule pointer — you still merge it yourself).
 
----
+## Where things live
 
-## Starting a New Project
+    06_Code/
+      tokens/            — brand design tokens (tokens/brands/{brand}.json, {brand}-components.json)
+                            + the compiler (tokens/compile.js) and its output (tokens/brands/compiled/)
+      components/        — the component library (CSS classes + web components) and its README
+      decisions/          — architecture decision records (ADR-001 onward)
+      assets/            — brand image assets (icons, favicons, etc.)
 
-**1. Duplicate this folder**
+`01_Docs/`, `02_CAD_Working/`, `03_CAD_Release/`, `04_ID/`, `05_Notes/` are leftover scaffolding from the client-project template this repo was created from — this project has no CAD/ID deliverables, so they're unused. `06_Code/` is where everything real lives.
 
-Copy 001_TEMPLATE and rename it using the project serial convention:
+## Start here
 
-    [CLIENT]-[YEAR]-[Project_Name]
-    e.g. ZAN-2025-Zandfoort_aan_Zee
-
-**2. Initialize a git repo**
-
-Open PowerShell inside the new project folder:
-
-    cd path\to\CLIENT-YEAR-Project_Name
-    git init
-
-**3. Create a repo on GitHub**
-
-Go to github.com, create a new empty repository named to match your
-project serial. Then connect it locally:
-
-    git remote add origin https://github.com/YOURUSERNAME/REPO-NAME.git
-
-**4. Make your first commit**
-
-    git add .
-    git commit -m "project init"
-    git push -u origin main
-
-**5. Edit this README**
-
-Replace these instructions with a description of the actual project.
-Keep the folder structure section and update it if the structure
-diverges from the template.
-
----
-
-## Git Conventions
-
-Only 06_Code/ and markdown files in 05_Notes/ are tracked by git.
-All CAD, renders, and binary assets are ignored — see .gitignore.
-
-Commit messages should describe what changed, not just that something
-changed. Good: "add zero-crossing extraction per row". Bad: "update".
-
-Commit often. A commit after every working session is a reasonable
-minimum habit.
-
----
-
-## Backup
-
-Git is version control, not backup. CAD files, assets, and anything
-not tracked by git should be covered by OneDrive or equivalent.
-Make sure this project folder is inside your synced directory.
-
----
-
-*Delete everything above this line when the project is underway.*
+- Adding/using a component or editing brand values: [`06_Code/components/README.md`](06_Code/components/README.md)
+- Bootstrapping a new brand from scratch: [`06_Code/tokens/_starter/README.md`](06_Code/tokens/_starter/README.md)
+- Why git submodules (and their tradeoffs): [`06_Code/decisions/ADR-005-git-submodules.md`](06_Code/decisions/ADR-005-git-submodules.md)
